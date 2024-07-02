@@ -15,10 +15,21 @@
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
     "@angular/forms": "^18.0.0",
+    "@angular/localize": "^18.0.5",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@coreui/angular": "^5.2.2",
+    "@coreui/angular-chartjs": "^5.2.2",
+    "@coreui/angular-pro": "^5.2.2",
+    "@coreui/chartjs": "^4.0.0",
+    "@coreui/icons": "^3.0.1",
+    "@coreui/utils": "^2.0.2",
     "angular-auth-oidc-client": "^18.0.1",
+    "chart.js": "^4.4.3",
+    "coreui": "^0.1.0",
+    "localize": "^0.4.7",
+    "ngx-scrollbar": "^15.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
@@ -34,6 +45,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "sass": "^1.77.6",
     "typescript": "~5.4.2"
   }
 }

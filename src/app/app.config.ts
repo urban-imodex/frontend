@@ -1,6 +1,6 @@
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, importProvidersFrom, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withEnabledBlockingInitialNavigation, withHashLocation, withInMemoryScrolling, withRouterConfig, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { AutoLoginPartialRoutesGuard, LogLevel, OidcSecurityService, PublicEventsService, authInterceptor, provideAuth } from 'angular-auth-oidc-client';
@@ -9,10 +9,15 @@ import { AutoLoginPartialRoutesGuard, LogLevel, OidcSecurityService, PublicEvent
 import { AuthInterceptor } from './auth.interceptor';
 
 
+import { DropdownModule, SidebarModule } from '@coreui/angular';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { IconSetService } from '@coreui/icons-angular';
+
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    // provideRouter(routes),
     provideHttpClient(withInterceptors([authInterceptor()])),
     provideAuth({
       config: {
@@ -29,8 +34,8 @@ export const appConfig: ApplicationConfig = {
         // redirectUrl: window.location.origin,
         redirectUrl: `${window.location.origin}/callback`,
         clientId: 'feclient',
-        scope: 'openid profile email offline_access',
-        // scope: 'openid profile email',
+        // scope: 'openid profile email offline_access',
+        scope: 'openid profile email',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
@@ -53,5 +58,20 @@ export const appConfig: ApplicationConfig = {
     OidcSecurityService,
     AutoLoginPartialRoutesGuard,
     PublicEventsService,
+    importProvidersFrom(SidebarModule, DropdownModule),
+    IconSetService,
+    provideAnimations(),
+    provideRouter(routes,
+      withRouterConfig({
+        onSameUrlNavigation: 'reload'
+      }),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
+      }),
+      withEnabledBlockingInitialNavigation(),
+      withViewTransitions(),
+      withHashLocation()
+    ),
   ],
 };

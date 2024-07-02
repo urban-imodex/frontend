@@ -5,7 +5,14 @@
   "projects": {
     "imodex": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -17,9 +24,11 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
+              "@angular/localize/init",
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
@@ -27,7 +36,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/scss/styles.scss"
             ],
             "scripts": []
           },
@@ -90,6 +100,7 @@
               }
             ],
             "styles": [
+              "node_modules/@coreui/coreui-pro/dist/css/coreui.min.css",
               "src/styles.css"
             ],
             "scripts": []
