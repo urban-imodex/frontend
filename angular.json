@@ -36,7 +36,6 @@
               }
             ],
             "styles": [
-              "src/styles.css",
               "src/scss/styles.scss"
             ],
             "scripts": []
@@ -92,6 +91,7 @@
               "zone.js",
               "zone.js/testing"
             ],
+            "inlineStyleLanguage": "scss",
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {
@@ -100,7 +100,6 @@
               }
             ],
             "styles": [
-              "node_modules/@coreui/coreui-pro/dist/css/coreui.min.css",
               "src/styles.css"
             ],
             "scripts": []
