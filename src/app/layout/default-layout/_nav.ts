@@ -62,7 +62,7 @@ export const navItems: INavData[] = [
       {
         name: 'CoreUI Free',
         url: '/icons/coreui-icons',
-        icon: 'cif-fr',
+        icon: 'nav-icon-bullet',
         badge: {
           color: 'success',
           text: 'FREE :)'
