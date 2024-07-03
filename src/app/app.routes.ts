@@ -10,17 +10,24 @@ import { DefaultLayoutComponent } from './layout';
 
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'icons',  pathMatch: 'full'  },
+    {path: '', redirectTo: 'home',  pathMatch: 'full'  },
     {
         path: '',
         component: DefaultLayoutComponent,
+        canActivate: [AutoLoginPartialRoutesGuard],
         data: {
           title: 'Home'
         },
         children: [
           {
+            path: 'home',
+            loadChildren: () => import('./views/home/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
+          },
+          {
             path: 'icons',
-            loadChildren: () => import('./views/icons/routes').then((m) => m.routes)
+            loadChildren: () => import('./views/icons/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
           },
           {
             path: 'pages',

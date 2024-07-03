@@ -1,3 +1,5 @@
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+
 import { Component, computed, DestroyRef, inject, Input } from '@angular/core';
 import {
   AvatarComponent,
@@ -36,6 +38,14 @@ import { delay, filter, map, tap } from 'rxjs/operators';
 })
 export class DefaultHeaderComponent extends HeaderComponent {
 
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  protected readonly authenticated = this.oidcSecurityService.authenticated;
+
+  isAuthenticated = false;
+  router: any;
+  redirectContent: string | undefined;
+
+
   readonly #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   readonly #colorModeService = inject(ColorModeService);
   readonly colorMode = this.#colorModeService.colorMode;
@@ -69,6 +79,30 @@ export class DefaultHeaderComponent extends HeaderComponent {
       )
       .subscribe();
   }
+
+  ngOnInit(): void {
+    this.oidcSecurityService.isAuthenticated$.subscribe(
+      ({ isAuthenticated }) => {
+        this.isAuthenticated = isAuthenticated;
+        if (!isAuthenticated) {
+          console.log("WTFFFFF");
+          this.redirectContent = `0; URL=${window.location.origin}/`;
+        }
+      },
+      error => {
+        console.error('Error checking authentication status', error);
+      }
+    );
+  }
+
+  logout(): void {
+    this.oidcSecurityService
+      .logoff()
+      .subscribe((result) => console.log(result));
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
 
   @Input() sidebarId: string = 'sidebar1';
 

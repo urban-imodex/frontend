@@ -15,6 +15,7 @@ export class CallbackComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log("hereeeeeeeeee");
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
       if (isAuthenticated) {
         this.router.navigate(['/']);

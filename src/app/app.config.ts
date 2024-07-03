@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
         historyCleanupOff: false,
         authority: 'https://e7e60ef9f5f3.sn.mynetname.net:8443/realms/apisix',
         // redirectUrl: window.location.origin,
-        redirectUrl: `${window.location.origin}/callback`,
+        redirectUrl: `${window.location.origin}/#/callback`,
         clientId: 'feclient',
         // scope: 'openid profile email offline_access',
         scope: 'openid profile email',

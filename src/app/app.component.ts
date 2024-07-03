@@ -10,16 +10,16 @@ import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 
 @Component({
-    selector: 'app-root',
-    // templateUrl: './app.component.html',
-    template: '<router-outlet />',
-    // styleUrls: ['./app.component.css'],
-    standalone: true,
-    imports: [
-        RouterOutlet,
-        CommonModule,
-    ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  // template: '<router-outlet />',
+  // styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [
+      RouterOutlet,
+  ]
 })
+
 export class AppComponent implements OnInit {
   private readonly oidcSecurityService = inject(OidcSecurityService);
 
@@ -66,6 +66,6 @@ export class AppComponent implements OnInit {
     console.log('start logoff');
     this.oidcSecurityService
       .logoff()
-      .subscribe((result) => console.log(result));
+      .subscribe((result: any) => console.log(result));
   }
 }
