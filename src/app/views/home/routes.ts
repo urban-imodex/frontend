@@ -2,11 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: '',
-    data: {
-      title: 'Home'
-    },
-    loadComponent: () => import('./home.component').then(m => m.HomeComponent),
+    path: '', loadComponent: () => import('./home.component').then(m => m.HomeComponent),
     // children: [
     //   {
     //     path: '',
