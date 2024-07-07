@@ -23,9 +23,9 @@ export class CoreUIIconsComponent implements OnInit {
   public title = 'CoreUI Icons';
   public icons!: [string, string[]][];
 
-  constructor(
-    private route: ActivatedRoute, public iconSet: IconSetService
-  ) {
+  constructor(private route: ActivatedRoute, public iconSet: IconSetService)
+  {
+    console.log('IconsModule loaded');
     iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
   }
 
@@ -54,4 +54,6 @@ export class CoreUIIconsComponent implements OnInit {
       return icon[0].startsWith(prefix);
     });
   }
+
+  
 }

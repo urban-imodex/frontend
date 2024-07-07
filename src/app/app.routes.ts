@@ -10,7 +10,7 @@ import { DefaultLayoutComponent } from './layout';
 
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'home',  pathMatch: 'full'  },
+    {path: '', redirectTo: 'homer',  pathMatch: 'full'  },
     {
         path: '',
         component: DefaultLayoutComponent,
@@ -20,7 +20,7 @@ export const routes: Routes = [
         },
         children: [
           {
-            path: 'home',
+            path: '',
             loadChildren: () => import('./views/home/routes').then((m) => m.routes),
             canActivate: [AutoLoginPartialRoutesGuard],
           },
@@ -68,7 +68,7 @@ export const routes: Routes = [
         title: 'Register Page'
       }
     },
-    { path: '**', redirectTo: 'icons' }
+    { path: '**', redirectTo: '' }
 
 ];
 

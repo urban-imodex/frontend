@@ -64,7 +64,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
 
   constructor() {
     super();
-    this.#colorModeService.localStorageItemName.set('coreui-free-angular-admin-template-theme-default');
+    this.#colorModeService.localStorageItemName.set('theme-default');
     this.#colorModeService.eventName.set('ColorSchemeChange');
 
     this.#activatedRoute.queryParams
@@ -80,12 +80,24 @@ export class DefaultHeaderComponent extends HeaderComponent {
       .subscribe();
   }
 
+  setThemeBasedOnTime() {
+    const hour = new Date().getHours();
+    console.log("Hour: " + hour);
+    if (hour >= 18 || hour < 6) {
+      this.colorMode.set('dark');
+      console.log("set dark....");
+    } else {
+      this.colorMode.set('light');
+      console.log("set light.... ");
+    }
+  }
+
   ngOnInit(): void {
+    this.setThemeBasedOnTime();
     this.oidcSecurityService.isAuthenticated$.subscribe(
       ({ isAuthenticated }) => {
         this.isAuthenticated = isAuthenticated;
         if (!isAuthenticated) {
-          console.log("WTFFFFF");
           this.redirectContent = `0; URL=${window.location.origin}/`;
         }
       },

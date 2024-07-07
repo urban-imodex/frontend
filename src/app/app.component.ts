@@ -31,6 +31,7 @@ export class AppComponent implements OnInit {
     private titleService: Title,
     private iconSetService: IconSetService
   ) {
+    console.log('appComponent loaded');
     this.titleService.setTitle(this.title);
     // iconSet singleton
     this.iconSetService.icons = { ...iconSubset };
