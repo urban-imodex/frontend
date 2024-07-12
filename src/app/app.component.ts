@@ -29,12 +29,21 @@ export class AppComponent implements OnInit {
   constructor(
     private router: Router,
     private titleService: Title,
-    private iconSetService: IconSetService
+    private iconSetService: IconSetService,
   ) {
     console.log('appComponent loaded');
     this.titleService.setTitle(this.title);
     // iconSet singleton
     this.iconSetService.icons = { ...iconSubset };
+
+    // this.oidcSecurityService
+    // .checkAuth()
+    // .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId  }) => {
+    //   this.isAuthenticated = isAuthenticated;
+    //   console.log('app authenticated', isAuthenticated);
+    //   console.log(`Current access token is '${accessToken}'`);
+    // });
+
   }
 
   ngOnInit(): void {
@@ -48,25 +57,11 @@ export class AppComponent implements OnInit {
       .checkAuth()
       .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId  }) => {
         this.isAuthenticated = isAuthenticated;
-        console.log('app authenticated', isAuthenticated);
-        console.log(`Current access token is '${accessToken}'`);
+        console.log('zzzzzz app authenticated?', isAuthenticated);
+        console.log(`zzzzzz Current access token is '${accessToken}'`);
       });
+      
   }
+  
 
-  login(): void {
-    console.log('start login');
-    this.oidcSecurityService.authorize();
-  }
-
-  refreshSession(): void {
-    console.log('start refreshSession');
-    this.oidcSecurityService.authorize();
-  }
-
-  logout(): void {
-    console.log('start logoff');
-    this.oidcSecurityService
-      .logoff()
-      .subscribe((result: any) => console.log(result));
-  }
 }

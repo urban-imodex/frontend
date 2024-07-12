@@ -18,10 +18,11 @@ export class CallbackComponent implements OnInit {
     console.log("hereeeeeeeeee");
     this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
       if (isAuthenticated) {
+        console.warn('default OOOOOOOOOOOOOOOOOOOOOOOOO authenticated: ', isAuthenticated);
         this.router.navigate(['/']);
       } else {
         // Handle authentication failure (optional)
-        // this.router.navigate(['/']);
+        this.router.navigate(['/']);
       }
     });
   }

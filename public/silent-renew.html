@@ -9,14 +9,18 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   </head>
   <body>
+    a
     <script>
       window.onload = function () {
+        console.log("Hello world!");
         /* The parent window hosts the Angular application */
         var parent = window.parent;
         /* Send the id_token information to the oidc message handler */
-        var event = new CustomEvent('oidc-silent-renew-message', {
-          detail: window.location,
-        });
+        // var event = new CustomEvent('oidc-silent-renew-message', {
+        //   detail: window.location,
+        // });
+        const event = new CustomEvent('oidc-silent-renew-message', { detail: window.location.hash.substr(1) || window.location.search.substr(1) });
+
         parent.dispatchEvent(event);
       };
     </script>

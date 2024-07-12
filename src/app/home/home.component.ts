@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.userToken$ = this.oidcSecurityService.getAccessToken();
+    this.userToken$ = this.oidcSecurityService.getAccessToken();
 
     this.oidcSecurityService.isAuthenticated$.subscribe(
       ({ isAuthenticated }) => {
@@ -82,33 +82,33 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    // this.oidcSecurityService.getPayloadFromAccessToken().subscribe(
-    //   {
-    //   // next: (accessTokenPayload) => {
-    //   next: (accessTokenPayload) => {
-    //     this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
-    //       map(payload => {
-    //         return {
-    //           sub: payload['sub'],
-    //           name: payload['name'],
-    //           family_name: payload['family_name'],
-    //           given_name: payload['given_name'],
-    //           email: payload['email'],
-    //           azp: payload['azp'],
-    //           resource_access: payload['resource_access']['feclient']['roles'],
-    //           email_verified: payload['email_verified'],
-    //           exp: payload['exp'],
+    this.oidcSecurityService.getPayloadFromAccessToken().subscribe(
+      {
+      // next: (accessTokenPayload) => {
+      next: (accessTokenPayload) => {
+        this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
+          map(payload => {
+            return {
+              sub: payload['sub'],
+              name: payload['name'],
+              family_name: payload['family_name'],
+              given_name: payload['given_name'],
+              email: payload['email'],
+              azp: payload['azp'],
+              resource_access: payload['resource_access']['feclient']['roles'],
+              email_verified: payload['email_verified'],
+              exp: payload['exp'],
 
               
 
-    //         };
-    //       })
-    //     );
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching access token payload', err);
-    //   }
-    // });
+            };
+          })
+        );
+      },
+      error: (err) => {
+        console.error('Error fetching access token payload', err);
+      }
+    });
 
   }
 
