@@ -8,6 +8,7 @@ import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, Ro
 import { map } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { AsyncPipe, CommonModule, JsonPipe, DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,7 @@ import { AsyncPipe, CommonModule, JsonPipe, DatePipe } from '@angular/common';
 })
 export class HomeComponent implements OnInit {
   public title = 'Homes';
+  response: any;
 
 
   // private readonly oidcSecurityService = inject(OidcSecurityService);
@@ -102,6 +104,16 @@ export class HomeComponent implements OnInit {
     //   }
     // });
 
+  }
+
+  constructor(private http: HttpClient) {}
+
+  callApi() {
+    this.http.get('https://e7e60ef9f5f3.sn.mynetname.net:9443/rpc/me').subscribe(
+      // this.http.get('http://localhost:3000').subscribe(
+      (data) => (this.response = data),
+      (error) => console.error(error)
+    );
   }
 
 

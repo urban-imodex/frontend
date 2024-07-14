@@ -24,5 +24,7 @@
       <pre>{{ userData$ | async | json }}</pre>
       <pre>{{ configuration$ | async | json}}</pre>
        -->
+       <button (click)="callApi()">Call API</button>
+       <pre>{{ response | json }}</pre>
     </c-card-body>
   </c-card>

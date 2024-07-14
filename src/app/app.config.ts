@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
         silentRenewUrl: `${window.location.origin}/silent-renew.html`,
         autoUserInfo: true,
         ignoreNonceAfterRefresh: true,
-        secureRoutes: ['http://e7e60ef9f5f3.sn.mynetname.net:3000'],
+        secureRoutes: ['https://e7e60ef9f5f3.sn.mynetname.net:9443'],
         triggerRefreshWhenIdTokenExpired: true,
         // disableIdTokenValidation: true,
         maxIdTokenIatOffsetAllowedInSeconds: 20,

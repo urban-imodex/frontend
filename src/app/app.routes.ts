@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
 // import { ProtectedComponent } from './protected/protected.component';
 import { ExternalApiComponent } from './external-api/external-api.component';
 import { AutoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';

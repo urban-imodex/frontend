@@ -111,7 +111,7 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.oidcSecurityService
       .logoff()
       .subscribe((result) => console.log(result));
-    localStorage.clear();
+    // localStorage.clear();
     sessionStorage.clear();
   }
 
