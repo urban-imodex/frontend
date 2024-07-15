@@ -28,7 +28,8 @@ import { NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
 import { IconDirective } from '@coreui/icons-angular';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { delay, filter, map, tap } from 'rxjs/operators';
+import { delay, filter, map, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-default-header',
@@ -44,6 +45,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
   isAuthenticated = false;
   router: any;
   redirectContent: string | undefined;
+
+  private destroy$ = new Subject<void>();
+
 
 
   readonly #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
@@ -70,21 +74,35 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.#activatedRoute.queryParams
       .pipe(
         delay(1),
-        map(params => <string>params['theme']?.match(/^[A-Za-z0-9\s]+/)?.[0]),
+        map(params => {
+          const themeParam = <string>params['theme']?.match(/^[A-Za-z0-9\s]+/)?.[0];
+          return themeParam || this.getThemeBasedOnTime();
+        }),
         filter(theme => ['dark', 'light', 'auto'].includes(theme)),
         tap(theme => {
           this.colorMode.set(theme);
         }),
-        takeUntilDestroyed(this.#destroyRef)
+        takeUntil(this.destroy$)
       )
       .subscribe();
+      
+  }
+
+
+  private getThemeBasedOnTime(): 'dark' | 'light' | 'auto' {
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+      return 'dark';  // Night time
+    } else {
+      return 'light';  // Day time
+    }
   }
 
   setThemeBasedOnTime() {
     const hour = new Date().getHours();
     console.log("Hour: " + hour);
-    if (hour >= 18 || hour < 6) {
-      this.colorMode.set('dark');
+    if (hour >= 18 || hour < 3) {
+      this.colorMode.set('light');
       console.log("set dark....");
     } else {
       this.colorMode.set('light');
@@ -113,6 +131,11 @@ export class DefaultHeaderComponent extends HeaderComponent {
       .subscribe((result) => console.log(result));
     // localStorage.clear();
     sessionStorage.clear();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 

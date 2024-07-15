@@ -79,7 +79,7 @@ export class DefaultLayoutComponent implements OnInit {
         this.isAuthenticated = isAuthenticated;
         // this.userToken$ = this.userToken$;
         // this.userToken$ = this.oidcSecurityService.getAccessToken();       
-        console.warn('default BBBBBBBBBBBBBBB authenticated: ', isAuthenticated);
+        // console.warn('default BBBBBBBBBBBBBBB authenticated: ', isAuthenticated);
         if (!isAuthenticated) {
           console.log("FUCK OFFFF");
           this.ngZone.run(() => {

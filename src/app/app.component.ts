@@ -57,8 +57,8 @@ export class AppComponent implements OnInit {
       .checkAuth()
       .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId  }) => {
         this.isAuthenticated = isAuthenticated;
-        console.log('zzzzzz app authenticated?', isAuthenticated);
-        console.log(`zzzzzz Current access token is '${accessToken}'`);
+        // console.log('zzzzzz app authenticated?', isAuthenticated);
+        // console.log(`zzzzzz Current access token is '${accessToken}'`);
       });
       
   }

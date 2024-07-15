@@ -9,7 +9,7 @@ import { DefaultLayoutComponent } from './layout';
 
 
 export const routes: Routes = [
-    {path: '', redirectTo: 'homer',  pathMatch: 'full'  },
+    {path: '', redirectTo: 'home',  pathMatch: 'full'  },
     {
         path: '',
         component: DefaultLayoutComponent,
