@@ -29,6 +29,11 @@ export const routes: Routes = [
             canActivate: [AutoLoginPartialRoutesGuard],
           },
           {
+            path: 'contacts',
+            loadChildren: () => import('./views/contacts/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
+          },
+          {
             path: 'pages',
             loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
           }

@@ -1,0 +1,36 @@
+<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)">
+  <c-modal-header>
+    <h5 class="modal-title">Edit Contact</h5>
+    <button type="button" class="btn-close" (click)="onClose()"></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div *ngIf="contact">
+      <form>
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" [(ngModel)]="contact.firstname" name="firstName">
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" [(ngModel)]="contact.lastname" name="lastName">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="contact.email" name="email">
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" class="form-control" id="phone" [(ngModel)]="contact.phone" name="phone">
+        </div>
+        <div class="mb-3">
+          <label for="addr" class="form-label">Address</label>
+          <input type="text" class="form-control" id="addr" [(ngModel)]="contact.addr" name="addr">
+        </div>
+      </form>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+  </c-modal-footer>
+</c-modal>

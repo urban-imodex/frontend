@@ -80,7 +80,9 @@ export class DefaultHeaderComponent extends HeaderComponent {
         }),
         filter(theme => ['dark', 'light', 'auto'].includes(theme)),
         tap(theme => {
-          this.colorMode.set(theme);
+          // this.colorMode.set(theme);
+          this.colorMode.set('dark');
+
         }),
         takeUntil(this.destroy$)
       )
