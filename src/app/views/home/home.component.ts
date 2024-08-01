@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
@@ -9,6 +9,10 @@ import { map } from 'rxjs';
 import { Observable } from 'rxjs/internal/Observable';
 import { AsyncPipe, CommonModule, JsonPipe, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ToasterComponent, ToasterPlacement } from '@coreui/angular-pro';
+
+import { ToastService } from '../../utils/toast.service';
+import { ToastOptions } from '../../utils/toast.interface';
 
 @Component({
   selector: 'app-home',
@@ -29,84 +33,15 @@ export class HomeComponent implements OnInit {
   public title = 'Homes';
   response: any;
 
+  // placement = ToasterPlacement.TopCenter;
 
-  // private readonly oidcSecurityService = inject(OidcSecurityService);
-  // userToken$: Observable<string | null> | undefined;
-  // lolz$: Observable<any | null> | undefined;
-
-  // userData$ = this.oidcSecurityService.userData$;
-  // isAuthenticated = false;
-  // userToken$ = this.oidcSecurityService.getAccessToken();
-
-
-  // configuration$ = this.oidcSecurityService.getConfiguration();
+  // @ViewChild(ToasterComponent) toaster!: ToasterComponent;
 
   ngOnInit() {
-    // this.userToken$ = this.oidcSecurityService.getAccessToken();
-
-    // this.oidcSecurityService.isAuthenticated$.subscribe(
-    //   ({ isAuthenticated }) => {
-    //     this.isAuthenticated = isAuthenticated;
-    //     // this.userToken$ = this.userToken$;
-    //     this.userToken$ = this.oidcSecurityService.getAccessToken();       
-    //     console.warn('yyyy authenticated: ', isAuthenticated);
-    //     // if(!isAuthenticated){
-    //     //   this.router.navigate(['/']);
-    //     // }
-    //   }
-    // );
-
-    // this.oidcSecurityService.isAuthenticated$.subscribe(
-    //   ({ isAuthenticated }) => {
-    //     this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
-    //       map(payload => {
-    //         return {
-    //           sub: payload['sub'],
-    //           name: payload['name'],
-    //           family_name: payload['family_name'],
-    //           given_name: payload['given_name'],
-    //           email: payload['email'],
-    //           azp: payload['azp'],
-    //           resource_access: payload['resource_access']['feclient']['roles'],
-    //           email_verified: payload['email_verified'],
-    //           exp: payload['exp'],
-    //         };
-    //       })
-    //     );
-    //   }
-    // );
-
-    // this.oidcSecurityService.getPayloadFromAccessToken().subscribe(
-    //   {
-    //   // next: (accessTokenPayload) => {
-    //   next: (accessTokenPayload) => {
-    //     this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
-    //       map(payload => {
-    //         return {
-    //           sub: payload['sub'],
-    //           name: payload['name'],
-    //           family_name: payload['family_name'],
-    //           given_name: payload['given_name'],
-    //           email: payload['email'],
-    //           azp: payload['azp'],
-    //           resource_access: payload['resource_access']['feclient']['roles'],
-    //           email_verified: payload['email_verified'],
-    //           exp: payload['exp'],
-
-              
-
-    //         };
-    //       })
-    //     );
-    //   },
-    //   error: (err) => {
-    //     console.error('Error fetching access token payload', err);
-    //   }
-    // });
 
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastService: ToastService) {}
 
   callApi() {
     this.http.get('https://e7e60ef9f5f3.sn.mynetname.net:9443/rpc/me').subscribe(
@@ -115,6 +50,37 @@ export class HomeComponent implements OnInit {
       (error) => console.error(error)
     );
   }
+
+  showNotification() {
+    const toast: ToastOptions = {
+      title: 'Notification',
+      message: 'This is a toast notification.',
+      color: 'success',
+      autohide: true,
+      delay: 2500
+    };
+    this.toastService.showToast(toast);
+  }
+
+  showNotification2() {
+    const toast: ToastOptions = {
+      title: 'Notification',
+      message: 'alupigus!!!!',
+      color: 'danger',
+      autohide: true,
+      delay: 2500
+    };
+    this.toastService.showToast(toast);
+  }
+
+  showSuccess() {
+    this.toastService.showSuccessToast('Operation completed successfully.');
+  }
+
+  showFailure() {
+    this.toastService.showFailureToast('An error occurred. Please try again.');
+  }
+
 
 
 }

@@ -1,0 +1,29 @@
+<!-- <c-toast [visible]="visible" [color]="color" [autohide]="autohide" [delay]="delay">
+    <c-toast-header>
+      <strong class="me-auto">{{ title }}</strong>
+      <button type="button" class="btn-close" aria-label="Close" (click)="hideToast()"></button>
+    </c-toast-header>
+    <c-toast-body>
+      {{ message }}
+    </c-toast-body>
+  </c-toast>
+   -->
+<!-- <c-toaster placement="top-center" position="static"> -->
+    <c-toast [visible]="visible" [color]="color" [autohide]="autohide" [delay]="delay">
+        <div class="d-flex">
+            <c-toast-body>
+                <span>{{ message }}</span>
+            </c-toast-body>
+            <button aria-label="close" cButtonClose white class="me-2 m-auto" (click)="hideToast()"></button>
+        </div>
+    </c-toast>
+<!-- </c-toaster> -->
+
+<!-- <c-toast [visible]="visible" [color]="color" [autohide]="autohide" [delay]="delay">
+    <c-toast-header (click)="hideToast()">
+      <strong class="me-auto">{{ title }}</strong>
+    </c-toast-header>
+    <c-toast-body>
+      {{ message }}
+    </c-toast-body>
+  </c-toast> -->

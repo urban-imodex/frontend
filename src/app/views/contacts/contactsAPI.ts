@@ -28,4 +28,9 @@ export class ContactsApiService {
     return this.http.patch<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`, cleanContact);
   }
 
+  deleteData(contact: Contact): Observable<Contact> {
+    return this.http.delete<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`);
+
+  }
+
 }

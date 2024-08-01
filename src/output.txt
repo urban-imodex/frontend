@@ -1,0 +1,3695 @@
+Directory: .
+Directory: ./scss
+File: ./scss/_theme copy.scss
+body {
+  background-color: var(--cui-tertiary-bg);
+}
+
+.wrapper {
+  width: 100%;
+  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+  @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+// .sidebar-nav {
+//   .sidebar-narrow
+//   {
+//   // .sidebar-narrow-unfoldable:not(:hover) .sidebar-nav, .sidebar-narrow .sidebar-nav
+//   --cui-sidebar-nav-padding-x: 100px;
+//   --cui-sidebar-nav-padding-y: 100px;
+//   }
+// }
+
+.sidebar-brand-full {
+  margin-left: 3px;
+}
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+  }
+}
+
+.sidebar-toggler {
+  @include ltr-rtl("margin-left", auto);
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    @include ltr-rtl("margin-right", auto);
+  }
+  .sidebar-nav{
+    --cui-sidebar-nav-padding-x: 0.1rem;
+    // --cui-sidebar-nav-padding-y: 0.5rem;
+
+  }
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark) {
+    body {
+      background-color: var(--cui-dark-bg-subtle);
+    }
+
+    .footer {
+      --cui-footer-bg: var(--cui-body-bg);
+    }
+  }
+}
+
+File: ./scss/_scrollbar.scss
+// scrollbar tinkering
+
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #444 transparent;
+  }
+}
+
+//::-webkit-scrollbar {
+//  width: .7em;
+//  height: .7em;
+//}
+
+::-webkit-scrollbar-track {
+  background: var(--cui-body-bg, #fff);
+  border-radius: 100vw;
+  margin-block: .2em;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #999;
+  border: .15em solid var(--cui-body-bg, #fff);
+  border-radius: 100vw;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+.dark-theme::-webkit-scrollbar-thumb {
+  background: var(--cui-gray-600, #444);
+}
+
+.dark-theme::-webkit-scrollbar-thumb:hover {
+  background: var(--cui-gray-400, #999);
+}
+
+.ng-scroll-content {
+  display: flex !important;
+}
+
+.ng-scrollbar:not(.overflow) .ng-scrollbar-wrapper[verticalused="false"] {
+  //background-color: #e797a5;
+    .ng-scroll-viewport {
+      display: flex;
+    }
+}
+File: ./scss/_fixes.scss
+// Place for temp fixes
+
+
+
+
+File: ./scss/_custom.scss
+// Here you can add other styles
+
+// custom .chartjs-tooltip-body-item padding
+@import "charts";
+
+// custom tweaks for scrollbar styling (wip)
+@import "scrollbar";
+
+
+
+ // custom calendar today cell color
+.calendar-cell.today {
+  --cui-calendar-cell-today-color: var(--cui-info) !important;
+}
+
+// custom select week cursor pointer
+.select-week .calendar-row.current {
+  cursor: pointer;
+}
+
+
+
+File: ./scss/_charts.scss
+// custom .chartjs-tooltip-body-item
+
+.chartjs-tooltip-body-item > td {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+  font-size: smaller;
+}
+
+File: ./scss/_examples.scss
+/* stylelint-disable declaration-no-important, scss/selector-no-redundant-nesting-selector */
+$enable-deprecation-messages: false; /* stylelint-disable-line scss/dollar-variable-default */
+
+.example {
+  &:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+
+  .tab-content {
+    background-color: var(--#{$prefix}tertiary-bg);
+    //background-color: rgba(var(--#{$prefix}tertiary-bg-rgb), var(--#{$prefix}bg-opacity, 1)) !important;
+  }
+
+  & + p {
+    margin-top: 1.5rem;
+  }
+
+  // Components examples
+  .preview {
+    + p {
+      margin-top: 2rem;
+    }
+
+    > .form-control {
+      + .form-control {
+        margin-top: .5rem;
+      }
+    }
+
+    > .nav + .nav,
+    > .alert + .alert,
+    > .navbar + .navbar,
+    > .progress + .progress {
+      margin-top: 1rem;
+    }
+
+    > .dropdown-menu {
+      position: static;
+      display: block;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
+    // Images
+    > svg + svg,
+    > img + img {
+      margin-left: .5rem;
+    }
+
+    // Buttons
+    .col > .btn,
+    .col-auto > .btn,
+    .d-md-block > .btn,
+    > .btn,
+    > .btn-group {
+      margin: .25rem .125rem;
+    }
+
+    > .btn-toolbar + .btn-toolbar {
+      margin-top: .5rem;
+    }
+
+    // List groups
+    > .list-group {
+      max-width: 400px;
+    }
+
+    > [class*="list-group-horizontal"] {
+      max-width: 100%;
+    }
+
+    // Navbars
+    .fixed-top,
+    .sticky-top {
+      position: static;
+      margin: -1rem -1rem 1rem;
+    }
+
+    .fixed-bottom {
+      position: static;
+      margin: 1rem -1rem -1rem;
+    }
+
+    @include media-breakpoint-up(sm) {
+      .fixed-top,
+      .sticky-top {
+        margin: -1.5rem -1.5rem 1rem;
+      }
+      .fixed-bottom {
+        margin: 1rem -1.5rem -1.5rem;
+      }
+    }
+
+    // Pagination
+    .pagination {
+      margin-top: .5rem;
+      margin-bottom: .5rem;
+    }
+
+    .docs-example-modal {
+      .modal {
+        position: static;
+        display: block;
+      }
+    }
+  }
+}
+File: ./scss/_variables.scss
+// Variable overrides
+//
+// If you want to customize your project please add your variables below.
+
+$enable-deprecation-messages: false !default;
+
+File: ./scss/_theme.scss
+body {
+  background-color: var(--cui-tertiary-bg);
+}
+
+.wrapper {
+  width: 100%;
+  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+  @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+  will-change: auto;
+  @include transition(padding .15s);
+}
+
+.header > .container-fluid,
+.sidebar-header {
+  min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+.sidebar-brand-full {
+  margin-left: 3px;
+}
+
+.sidebar-header {
+  .nav-underline-border {
+    --cui-nav-underline-border-link-padding-x: 1rem;
+    --cui-nav-underline-border-gap: 0;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: calc(4rem + 1px); // stylelint-disable-line function-disallowed-list
+  }
+}
+
+.sidebar-toggler {
+  @include ltr-rtl("margin-left", auto);
+}
+
+.sidebar-narrow,
+.sidebar-narrow-unfoldable:not(:hover) {
+  .sidebar-toggler {
+    @include ltr-rtl("margin-right", auto);
+  }
+  .sidebar-nav{
+    --cui-sidebar-nav-padding-x: 0.1rem;
+    // --cui-sidebar-nav-padding-y: 0.5rem;
+
+  }
+}
+
+.header > .container-fluid + .container-fluid {
+  min-height: 3rem;
+}
+
+.footer {
+  min-height: calc(3rem + 1px); // stylelint-disable-line function-disallowed-list
+}
+
+@if $enable-dark-mode {
+  @include color-mode(dark) {
+    body {
+      background-color: var(--cui-dark-bg-subtle);
+    }
+
+    .footer {
+      --cui-footer-bg: var(--cui-body-bg);
+    }
+  }
+}
+File: ./scss/styles.scss
+/* You can add global styles to this file, and also import other style files */
+
+// If you want to override variables do it here
+@import "variables";
+
+// Import styles with default layout.
+@import "@coreui/coreui/scss/coreui";
+
+// Import Chart.js custom tooltips styles
+@import "@coreui/chartjs/scss/coreui-chartjs";
+
+// Custom styles for this theme
+@import "theme";
+
+// Some temp fixes
+//@import "fixes";
+
+// If you want to add custom CSS you can put it here.
+@import "custom";
+
+// Examples
+// We use those styles to show code examples, you should remove them in your application.
+@import "examples";
+
+Directory: ./app
+File: ./app/app.component.html
+@if (isAuthenticated) {
+  <router-outlet></router-outlet>
+  <app-toast-container></app-toast-container>
+} @else {
+  <div>Redirecting to auth...</div>
+}
+Directory: ./app/utils
+File: ./app/utils/app-toast.component.ts
+import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { interval, Subscription } from 'rxjs';
+import { ToastComponent, ToasterComponent, ToastHeaderComponent, ToastBodyComponent, ButtonCloseDirective, ToasterService } from '@coreui/angular-pro';
+
+@Component({
+  selector: 'app-toast',
+  templateUrl: './app-toast.component.html',
+  styleUrls: ['./app-toast.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ToastComponent, ToasterComponent, ToastHeaderComponent, ToastBodyComponent, ButtonCloseDirective],
+  providers: [{ provide: ToastComponent, useExisting: forwardRef(() => AppToastComponent) }],
+})
+export class AppToastComponent implements OnInit {
+  @Input() title = '';
+  @Input() message = '';
+  @Input() color = 'info';
+  @Input() autohide = true;
+  @Input() delay = 5000;
+  @Input() closeButton = true;
+
+
+  // isVisible = true;
+  progress = 0;
+  private intervalId: any;
+  private progressSubscription?: Subscription;
+  isVisibleToast = true;
+
+
+  constructor(
+    public hostElement: ElementRef,
+    public renderer: Renderer2,
+    public toasterService: ToasterService,
+    public changeDetectorRef: ChangeDetectorRef
+  ) {
+    // super(hostElement, renderer, toasterService, changeDetectorRef);
+  }
+
+  ngOnInit() {
+    console.log('ToastComponent initialized with:', {
+      title: this.title,
+      message: this.message,
+      color: this.color,
+      autohide: this.autohide,
+      delay: this.delay
+    });
+
+    if (this.autohide) {
+      this.startAutoHide();
+    }
+    console.log('ToastComponent: ToastComponent visibility:', this.isVisibleToast);
+  }
+
+  // startAutoHide() {
+  //   console.log("ToastComponent: Start Autohide")
+  //   console.log('ToastComponent: ToastComponent visibility:', this.isVisibleToast);
+
+  //   this.intervalId = setInterval(() => {
+  //     this.progress += 100 / (this.delay / 100);
+  //     console.log('Toast progress:', this.progress);
+  //     if (this.progress >= 100) {
+  //       this.hideToast();
+  //     }
+  //   }, 100);
+  // }
+
+  startAutoHide() {
+    console.log("ToastComponent: Start Autohide");
+    const intervalTime = 100;
+    const progressIncrement = 100 / (this.delay / intervalTime);
+
+    this.intervalId = setInterval(() => {
+      this.progress += progressIncrement;
+      console.log('Toast progress:', this.progress);
+      if (this.progress >= 100) {
+        this.hideToast();
+      }
+      this.changeDetectorRef.detectChanges();
+    }, intervalTime);
+  }
+
+  // hideToast() {
+  //   console.log('Hiding toast ', this.autohide, this.isVisibleToast);
+  //   console.log('ToastComponent: ToastComponent visibility:', this.isVisibleToast);
+
+  //   clearInterval(this.intervalId);
+  //   this.isVisibleToast = false;
+  //   console.log('HIDDEN toast ', this.autohide, this.isVisibleToast);
+  //   console.log('ToastComponent: ToastComponent visibility:', this.isVisibleToast);
+
+  //   this.changeDetectorRef.detectChanges();
+
+  // }
+
+  // ngOnDestroy() {
+  //   // Clean up the interval subscription if the component is destroyed
+  //   if (this.progressSubscription) {
+  //     this.progressSubscription.unsubscribe();
+  //   }
+  // }
+
+  hideToast() {
+    console.log('Hiding toast');
+    clearInterval(this.intervalId);
+    this.isVisibleToast = false;
+    this.changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.intervalId);
+  }
+}
+
+File: ./app/utils/toast.interface.ts
+export interface ToastOptions {
+    title: string;
+    message: string;
+    color: string;
+    autohide: boolean;
+    delay: number;
+    placement: string;
+  }
+  
+File: ./app/utils/toast-container.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ToastService } from './toast.service'; // Adjust path as necessary
+import { ToastOptions } from './toast.interface';
+import { CommonModule } from '@angular/common';
+import { ToastComponent, ToasterComponent, ToastBodyComponent, ToastHeaderComponent } from '@coreui/angular';
+import { AppToastComponent } from './app-toast.component';
+
+@Component({
+  selector: 'app-toast-container',
+  templateUrl: './toast-container.component.html',
+  styleUrls: ['./toast-container.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ToastComponent, ToasterComponent, AppToastComponent]
+})
+export class ToastContainerComponent implements OnInit {
+  toasts: ToastOptions[] = [];
+
+  constructor(private toastService: ToastService) { }
+
+  //   ngOnInit() {
+  //     this.toastService.toast$.subscribe(toast => {
+  //       this.toasts.push(toast);
+  //       if (toast.autohide) {
+  //         setTimeout(() => this.removeToast(toast), toast.delay);
+  //       }
+  //     });
+  //   }
+
+  ngOnInit() {
+    console.log('ToastContainerComponent initialized');
+    this.toastService.toast$.subscribe(toast => {
+      console.log('Received toast:', toast);
+      if (toast) {
+        this.toasts.push(toast);
+        if (toast.autohide) {
+          setTimeout(() => this.removeToast(toast), toast.delay);
+        }
+      }
+    });
+  }
+
+  removeToast(toast: ToastOptions) {
+    console.log('Removing toast:', toast);
+    this.toasts = this.toasts.filter(t => t !== toast);
+  }
+}
+
+File: ./app/utils/app-toast.component.html
+<!-- <div *ngIf="isVisible" class="toast-container">
+    <div class="toast" [ngClass]="color">
+      <div class="toast-header">
+        <strong class="mr-auto">{{ title }}</strong>
+        <button type="button" class="ml-2 close" (click)="hideToast()">&times;</button>
+      </div>
+      <div class="toast-body">
+        {{ message }}
+        <div class="progress mt-2">
+          <div class="progress-bar" role="progressbar" [style.width.%]="progress"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
+
+   <!-- <c-toast *ngIf="isVisibleToast" [color]="color" [autohide]="autohide" [delay]="delay"> -->
+   <c-toast [visible]="isVisibleToast" [color]="color" [autohide]="false" [delay]="delay">
+
+    <c-toast-header>
+      <strong class="me-auto">{{ title }}</strong>
+      <button type="button" class="btn-close" aria-label="Close" (click)="hideToast()"></button>
+    </c-toast-header>
+    <c-toast-body>
+      {{ message }}
+      <div class="progress mt-2">
+        <div class="progress-bar" role="progressbar" [style.width.%]="progress"></div>
+      </div>
+    </c-toast-body>
+  </c-toast>
+  
+
+  
+File: ./app/utils/toast.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { ToastOptions } from './toast.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ToastService {
+  private toastSubject = new BehaviorSubject<ToastOptions | null>(null);
+  toast$ = this.toastSubject.asObservable();
+
+  showToast(options: ToastOptions) {
+    console.log('Showing toast with options:', options);
+    this.toastSubject.next(options);
+  }
+}
+
+File: ./app/utils/app-toast.component.scss
+// Toast Styles
+.toast {
+  margin-bottom: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  color: #fff;
+  font-size: 0.875rem;
+  animation: fadeIn 0.5s ease-out, fadeOut 0.5s ease-in forwards;
+
+  &-info {
+    background-color: #17a2b8; // Info color
+  }
+
+  &-success {
+    background-color: #28a745; // Success color
+  }
+
+  &-warning {
+    background-color: #ffc107; // Warning color
+  }
+
+  &-danger {
+    background-color: #dc3545; // Danger color
+  }
+}
+
+// Toast Animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}
+
+File: ./app/utils/toast-container.component.scss
+// Toast Container Styles
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1050; // Ensure it's higher than other content
+  // Optional: Adding padding for better positioning
+  padding: 1rem;
+
+  // Optional: Adding a max-width for responsiveness
+  max-width: 400px;
+}
+
+File: ./app/utils/toast-container.component.html
+<div class="toast-container">
+    <app-toast
+      *ngFor="let toast of toasts"
+      [title]="toast.title"
+      [message]="toast.message"
+      [color]="toast.color"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay">
+    </app-toast>
+  </div>
+  
+File: ./app/app.routes.ts
+import { Routes } from '@angular/router';
+// import { ProtectedComponent } from './protected/protected.component';
+import { ExternalApiComponent } from './external-api/external-api.component';
+import { AutoLoginPartialRoutesGuard } from 'angular-auth-oidc-client';
+import { CallbackComponent } from './callback/callback.component';
+
+import { DefaultLayoutComponent } from './layout';
+
+
+
+export const routes: Routes = [
+    {path: '', redirectTo: 'home',  pathMatch: 'full'  },
+    {
+        path: '',
+        component: DefaultLayoutComponent,
+        canActivate: [AutoLoginPartialRoutesGuard],
+        data: {
+          title: 'Home'
+        },
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('./views/home/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
+          },
+          {
+            path: 'icons',
+            loadChildren: () => import('./views/icons/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
+          },
+          {
+            path: 'contacts',
+            loadChildren: () => import('./views/contacts/routes').then((m) => m.routes),
+            canActivate: [AutoLoginPartialRoutesGuard],
+          },
+          {
+            path: 'pages',
+            loadChildren: () => import('./views/pages/routes').then((m) => m.routes)
+          }
+        ]
+      },
+    // { path: '', component: HomeComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+    // { path: 'home', component: HomeComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+    { path: 'callback', component: CallbackComponent },
+    // { path: 'protected', component: ProtectedComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+    { path: 'external-api', component: ExternalApiComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+    {
+      path: '404',
+      loadComponent: () => import('./views/pages/page404/page404.component').then(m => m.Page404Component),
+      data: {
+        title: 'Page 404'
+      }
+    },
+    {
+      path: '500',
+      loadComponent: () => import('./views/pages/page500/page500.component').then(m => m.Page500Component),
+      data: {
+        title: 'Page 500'
+      }
+    },
+    {
+      path: 'login',
+      loadComponent: () => import('./views/pages/login/login.component').then(m => m.LoginComponent),
+      data: {
+        title: 'Login Page'
+      }
+    },
+    {
+      path: 'register',
+      loadComponent: () => import('./views/pages/register/register.component').then(m => m.RegisterComponent),
+      data: {
+        title: 'Register Page'
+      }
+    },
+    { path: '**', redirectTo: '' }
+
+];
+
+
+// export const routes: Routes = [
+//     { path: '', pathMatch: 'full', redirectTo: 'home' },
+//     // { path: '', component: HomeComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+//     { path: 'home', component: HomeComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+//     { path: 'callback', component: CallbackComponent },
+//     // { path: 'protected', component: ProtectedComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+//     { path: 'external-api', component: ExternalApiComponent, canActivate: [AutoLoginPartialRoutesGuard] },
+//     // { path: '**', pathMatch: 'full', redirectTo: 'home' }, 
+
+// ];
+
+
+Directory: ./app/external-api
+File: ./app/external-api/external-api.component.html
+<p>external-api works!</p>
+
+File: ./app/external-api/external-api.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ExternalApiComponent } from './external-api.component';
+
+describe('ExternalApiComponent', () => {
+  let component: ExternalApiComponent;
+  let fixture: ComponentFixture<ExternalApiComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ExternalApiComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ExternalApiComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/external-api/external-api.component.ts
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+// import { AuthInterceptor } from 'angular-auth-oidc-client';
+
+@Component({
+  selector: 'app-external-api',
+  standalone: true,
+  imports: [JsonPipe, AsyncPipe],
+  template: `
+    <h1>External API</h1>
+    <button (click)="callApi()">Call API</button>
+    <pre>{{ response | json }}</pre>
+  `,
+})
+export class ExternalApiComponent {
+  response: any;
+
+  constructor(private http: HttpClient) {}
+
+  callApi() {
+    this.http.get('http://e7e60ef9f5f3.sn.mynetname.net:3000/rpc/me').subscribe(
+      // this.http.get('http://localhost:3000').subscribe(
+      (data) => (this.response = data),
+      (error) => console.error(error)
+    );
+  }
+}
+
+File: ./app/external-api/external-api.component.css
+
+File: ./app/app.component.ts
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+import { Title } from '@angular/platform-browser';
+
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from './icons/icon-subset';
+import { ToastContainerComponent } from './utils/toast-container.component';
+import { AppToastComponent } from './utils/app-toast.component';
+
+
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  // template: '<router-outlet />',
+  // styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    ToastContainerComponent,
+    AppToastComponent
+    
+]
+})
+
+export class AppComponent implements OnInit {
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  // @ViewChild('toaster') toaster!: AppToastComponent;
+
+
+
+  title = 'imoDEX';
+  isAuthenticated = false;
+
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    private iconSetService: IconSetService,
+    private cdr: ChangeDetectorRef,
+  ) {
+
+    console.log('appComponent loaded');
+    this.titleService.setTitle(this.title);
+    // iconSet singleton
+    this.iconSetService.icons = { ...iconSubset };
+
+    // this.oidcSecurityService
+    // .checkAuth()
+    // .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId  }) => {
+    //   this.isAuthenticated = isAuthenticated;
+    //   console.log('app authenticated', isAuthenticated);
+    //   console.log(`Current access token is '${accessToken}'`);
+    // });
+
+  }
+
+
+  ngOnInit() {
+    this.router.events.subscribe((evt: any) => {
+      if (!(evt instanceof NavigationEnd)) {
+        return;
+      };
+    });
+    
+    this.oidcSecurityService
+      .checkAuth()
+      .subscribe(({ isAuthenticated, userData, accessToken, idToken, configId  }) => {
+        this.isAuthenticated = isAuthenticated;
+        // console.log('zzzzzz app authenticated?', isAuthenticated);
+        // console.log(`zzzzzz Current access token is '${accessToken}'`);
+      });
+      
+  }
+  
+
+}
+
+File: ./app/auth.interceptor.ts
+import { Injectable } from '@angular/core';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
+import { Observable, from } from 'rxjs';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { mergeMap } from 'rxjs/operators';
+
+@Injectable()
+export class AuthInterceptor  {
+  // constructor(private oidcSecurityService: OidcSecurityService) {}
+
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //   console.log('Intercepting request:', req.url);
+
+  //   return from(this.oidcSecurityService.getAccessToken()).pipe(
+  //     mergeMap(token => {
+  //       if (token) {
+  //         console.log('Token:', token);
+  //         const cloned = req.clone({
+  //           setHeaders: {
+  //             Authorization: `Bearer ${token}`
+  //           }
+  //         });
+  //         return next.handle(cloned);
+  //       } else {
+  //         console.log('No token found');
+  //         return next.handle(req);
+  //       }
+  //     })
+  //   );
+  // }
+}
+
+Directory: ./app/icons
+File: ./app/icons/signet.ts
+export const signet = [
+  '102 115',
+  `<g style="fill: currentColor">
+    <path d="M96 24.124 57 1.608a12 12 0 0 0-12 0L6 24.124a12.034 12.034 0 0 0-6 10.393V79.55a12.033 12.033 0 0 0 6 10.392l39 22.517a12 12 0 0 0 12 0l39-22.517a12.033 12.033 0 0 0 6-10.392V34.517a12.034 12.034 0 0 0-6-10.393ZM94 79.55a4 4 0 0 1-2 3.464l-39 22.517a4 4 0 0 1-4 0L10 83.014a4 4 0 0 1-2-3.464V34.517a4 4 0 0 1 2-3.464L49 8.536a4 4 0 0 1 4 0l39 22.517a4 4 0 0 1 2 3.464V79.55Z"/>
+    <path d="M74.022 70.071h-2.866a4 4 0 0 0-1.925.494L51.95 80.05 32 68.531V45.554l19.95-11.519 17.29 9.455a4 4 0 0 0 1.919.49h2.863a2 2 0 0 0 2-2v-2.71a2 2 0 0 0-1.04-1.756L55.793 27.02a8.04 8.04 0 0 0-7.843.09L28 38.626a8.025 8.025 0 0 0-4 6.929V68.53a8 8 0 0 0 4 6.928l19.95 11.519a8.043 8.043 0 0 0 7.843.088l19.19-10.532a2 2 0 0 0 1.038-1.753v-2.71a2 2 0 0 0-2-2Z"/>
+  </g>`,
+]
+
+
+File: ./app/icons/icon-subset.ts
+import {
+  cibCcAmex,
+  cibCcApplePay,
+  cibCcMastercard,
+  cibCcPaypal,
+  cibCcStripe,
+  cibCcVisa,
+  cibFacebook,
+  cibGoogle,
+  cibLinkedin,
+  cibSkype,
+  cibTwitter,
+  cifBr,
+  cifEs,
+  cifFr,
+  cifIn,
+  cifPl,
+  cifUs,
+  cilAccountLogout,
+  cilAlignCenter,
+  cilAlignLeft,
+  cilAlignRight,
+  cilApplicationsSettings,
+  cilArrowBottom,
+  cilArrowRight,
+  cilArrowTop,
+  cilBasket,
+  cilBell,
+  cilBold,
+  cilBookmark,
+  cilCalculator,
+  cilCalendar,
+  cilChart,
+  cilChartPie,
+  cilCheck,
+  cilChevronLeft,
+  cilChevronRight,
+  cilCloudDownload,
+  cilCode,
+  cilCommentSquare,
+  cilContrast,
+  cilCreditCard,
+  cilCursor,
+  cilDescription,
+  cilDollar,
+  cilDrop,
+  cilEnvelopeClosed,
+  cilEnvelopeOpen,
+  cilFile,
+  cilGrid,
+  cilHome,
+  cilInbox,
+  cilIndentDecrease,
+  cilIndentIncrease,
+  cilItalic,
+  cilJustifyCenter,
+  cilLanguage,
+  cilLayers,
+  cilList,
+  cilListNumbered,
+  cilLocationPin,
+  cilLockLocked,
+  cilMagnifyingGlass,
+  cilMap,
+  cilMediaPlay,
+  cilMediaRecord,
+  cilMenu,
+  cilMoon,
+  cilNotes,
+  cilOptions,
+  cilPaperclip,
+  cilPaperPlane,
+  cilPen,
+  cilPencil,
+  cilPeople,
+  cilPrint,
+  cilPuzzle,
+  cilReportSlash,
+  cilSave,
+  cilSettings,
+  cilShare,
+  cilShareAll,
+  cilShareBoxed,
+  cilSpeech,
+  cilSpeedometer,
+  cilSpreadsheet,
+  cilStar,
+  cilSun,
+  cilTags,
+  cilTask,
+  cilTrash,
+  cilUnderline,
+  cilUser,
+  cilUserFemale,
+  cilUserFollow,
+  cilUserUnfollow
+} from '@coreui/icons';
+
+import { signet } from './signet';
+import { logo } from './logo';
+
+export const iconSubset = {
+  cibCcAmex,
+  cibCcApplePay,
+  cibCcMastercard,
+  cibCcPaypal,
+  cibCcStripe,
+  cibCcVisa,
+  cibFacebook,
+  cibGoogle,
+  cibLinkedin,
+  cibSkype,
+  cibTwitter,
+  cifBr,
+  cifEs,
+  cifFr,
+  cifIn,
+  cifPl,
+  cifUs,
+  cilAccountLogout,
+  cilAlignCenter,
+  cilAlignLeft,
+  cilAlignRight,
+  cilApplicationsSettings,
+  cilArrowBottom,
+  cilArrowRight,
+  cilArrowTop,
+  cilBasket,
+  cilBell,
+  cilBold,
+  cilBookmark,
+  cilCalculator,
+  cilCalendar,
+  cilChart,
+  cilChartPie,
+  cilCheck,
+  cilChevronLeft,
+  cilChevronRight,
+  cilCloudDownload,
+  cilCode,
+  cilCommentSquare,
+  cilContrast,
+  cilCreditCard,
+  cilCursor,
+  cilDescription,
+  cilDollar,
+  cilDrop,
+  cilEnvelopeClosed,
+  cilEnvelopeOpen,
+  cilFile,
+  cilGrid,
+  cilHome,
+  cilInbox,
+  cilIndentDecrease,
+  cilIndentIncrease,
+  cilItalic,
+  cilJustifyCenter,
+  cilLanguage,
+  cilLayers,
+  cilList,
+  cilListNumbered,
+  cilLocationPin,
+  cilLockLocked,
+  cilMagnifyingGlass,
+  cilMap,
+  cilMediaPlay,
+  cilMediaRecord,
+  cilMenu,
+  cilMoon,
+  cilNotes,
+  cilOptions,
+  cilPaperclip,
+  cilPaperPlane,
+  cilPen,
+  cilPencil,
+  cilPeople,
+  cilPrint,
+  cilPuzzle,
+  cilReportSlash,
+  cilSave,
+  cilSettings,
+  cilShare,
+  cilShareAll,
+  cilShareBoxed,
+  cilSpeech,
+  cilSpeedometer,
+  cilSpreadsheet,
+  cilStar,
+  cilSun,
+  cilTags,
+  cilTask,
+  cilTrash,
+  cilUnderline,
+  cilUser,
+  cilUserFemale,
+  cilUserFollow,
+  cilUserUnfollow,
+  logo,
+  signet
+};
+
+export enum IconSubset {
+  cibCcAmex = 'cibCcAmex',
+  cibCcApplePay = 'cibCcApplePay',
+  cibCcMastercard = 'cibCcMastercard',
+  cibCcPaypal = 'cibCcPaypal',
+  cibCcStripe = 'cibCcStripe',
+  cibCcVisa = 'cibCcVisa',
+  cibFacebook = 'cibFacebook',
+  cibGoogle = 'cibGoogle',
+  cibLinkedin = 'cibLinkedin',
+  cibSkype = 'cibSkype',
+  cibTwitter = 'cibTwitter',
+  cifBr = 'cifBr',
+  cifEs = 'cifEs',
+  cifFr = 'cifFr',
+  cifIn = 'cifIn',
+  cifPl = 'cifPl',
+  cifUs = 'cifUs',
+  cilAccountLogout = 'cilAccountLogout',
+  cilAlignCenter = 'cilAlignCenter',
+  cilAlignLeft = 'cilAlignLeft',
+  cilAlignRight = 'cilAlignRight',
+  cilApplicationsSettings = 'cilApplicationsSettings',
+  cilArrowBottom = 'cilArrowBottom',
+  cilArrowRight = 'cilArrowRight',
+  cilArrowTop = 'cilArrowTop',
+  cilBasket = 'cilBasket',
+  cilBell = 'cilBell',
+  cilBold = 'cilBold',
+  cilBookmark = 'cilBookmark',
+  cilCalculator = 'cilCalculator',
+  cilCalendar = 'cilCalendar',
+  cilChart = 'cilChart',
+  cilChartPie = 'cilChartPie',
+  cilCheck = 'cilCheck',
+  cilChevronLeft = 'cilChevronLeft',
+  cilChevronRight = 'cilChevronRight',
+  cilCloudDownload = 'cilCloudDownload',
+  cilCode = 'cilCode',
+  cilCommentSquare = 'cilCommentSquare',
+  cilContrast = 'cilContrastś',
+  cilCreditCard = 'cilCreditCard',
+  cilCursor = 'cilCursor',
+  cilDescription = 'cilDescription',
+  cilDollar = 'cilDollar',
+  cilDrop = 'cilDrop',
+  cilEnvelopeClosed = 'cilEnvelopeClosed',
+  cilEnvelopeOpen = 'cilEnvelopeOpen',
+  cilFile = 'cilFile',
+  cilGrid = 'cilGrid',
+  cilHome = 'cilHome',
+  cilInbox = 'cilInbox',
+  cilIndentDecrease = 'cilIndentDecrease',
+  cilIndentIncrease = 'cilIndentIncrease',
+  cilItalic = 'cilItalic',
+  cilJustifyCenter = 'cilJustifyCenter',
+  cilLanguage = 'cilLanguage',
+  cilLayers = 'cilLayers',
+  cilList = 'cilList',
+  cilListNumbered = 'cilListNumbered',
+  cilLocationPin = 'cilLocationPin',
+  cilLockLocked = 'cilLockLocked',
+  cilMagnifyingGlass = 'cilMagnifyingGlass',
+  cilMap = 'cilMap',
+  cilMediaPlay = 'cilMediaPlay',
+  cilMediaRecord = 'cilMediaRecord',
+  cilMenu = 'cilMenu',
+  cilMoon = 'cilMoon',
+  cilNotes = 'cilNotes',
+  cilOptions = 'cilOptions',
+  cilPaperclip = 'cilPaperclip',
+  cilPaperPlane = 'cilPaperPlane',
+  cilPen = 'cilPen',
+  cilPencil = 'cilPencil',
+  cilPeople = 'cilPeople',
+  cilPrint = 'cilPrint',
+  cilPuzzle = 'cilPuzzle',
+  cilReportSlash = 'cilReportSlash',
+  cilSave = 'cilSave',
+  cilSettings = 'cilSettings',
+  cilShare = 'cilShare',
+  cilShareAll = 'cilShareAll',
+  cilShareBoxed = 'cilShareBoxed',
+  cilSpeech = 'cilSpeech',
+  cilSpeedometer = 'cilSpeedometer',
+  cilSpreadsheet = 'cilSpreadsheet',
+  cilStar = 'cilStar',
+  cilSun = 'cilSun',
+  cilTags = 'cilTags',
+  cilTask = 'cilTask',
+  cilTrash = 'cilTrash',
+  cilUnderline = 'cilUnderline',
+  cilUser = 'cilUser',
+  cilUserFemale = 'cilUserFemale',
+  cilUserFollow = 'cilUserFollow',
+  cilUserUnfollow = 'cilUserUnfollow',
+  logo = 'logo',
+  signet = 'signet'
+}
+
+
+File: ./app/icons/logo.ts
+export const logo = [
+  '685 116',
+  `<g>
+    <g style="fill:#cf2f4c" transform="translate(0 -10)">
+      <path d="M399.5024,45.8636h1.2164a.5659.5659,0,0,1,.64.64v43.52a.5658.5658,0,0,1-.64.6406h-1.4083a.7517.7517,0,0,1-.768-.4482L379.2144,51.6234c-.086-.085-.16-.1172-.2242-.0967-.0634.0225-.0957.0967-.0957.2246l.064,38.2715a.5662.5662,0,0,1-.64.6406h-1.2159a.5656.5656,0,0,1-.64-.6406V46.5033a.5657.5657,0,0,1,.64-.64h1.3438a.7524.7524,0,0,1,.7681.4473l19.3281,38.4639c.0849.0869.16.1181.2241.0966s.0957-.0966.0957-.2246V46.5033A.5657.5657,0,0,1,399.5024,45.8636Z"/>
+      <path d="M360.418,90.1507l-2.4317-8.832a.2965.2965,0,0,0-.32-.1914H340.8984a.2951.2951,0,0,0-.32.1914L338.21,90.0873a.6584.6584,0,0,1-.7037.5761H336.29a.5863.5863,0,0,1-.48-.1923.58.58,0,0,1-.0961-.5118l12.0317-43.5839a.6436.6436,0,0,1,.7041-.5118h1.6a.6442.6442,0,0,1,.7041.5118l12.16,43.5839.0644.1914c0,.3428-.2139.5127-.64.5127h-1.2163A.6426.6426,0,0,1,360.418,90.1507ZM341.3145,78.9193a.3057.3057,0,0,0,.2236.0957h15.4883a.3076.3076,0,0,0,.2236-.0957c.0645-.0645.0742-.1172.0322-.16L349.41,49.8314c-.043-.085-.086-.1279-.128-.1279s-.0859.0429-.1279.1279l-7.8721,28.9277C341.2393,78.8021,341.25,78.8548,341.3145,78.9193Z"/>
+      <path d="M419.8223,87.9427a11.2812,11.2812,0,0,1-3.3282-8.48v-22.4a11.2857,11.2857,0,0,1,3.3282-8.48,13.69,13.69,0,0,1,17.6318-.0323,11.0472,11.0472,0,0,1,3.36,8.3838v1.92a.566.566,0,0,1-.64.6407H438.958a.5654.5654,0,0,1-.64-.6407v-1.92a9.019,9.019,0,0,0-2.6563-6.7519,10.7705,10.7705,0,0,0-14.0161,0,9.0946,9.0946,0,0,0-2.6558,6.8164V79.5267a9.0367,9.0367,0,0,0,2.6875,6.8164,9.7141,9.7141,0,0,0,7.04,2.5918,9.5618,9.5618,0,0,0,6.9765-2.5595,8.9655,8.9655,0,0,0,2.6241-6.72v-8.32a.2268.2268,0,0,0-.2564-.2558h-8.3843a.5654.5654,0,0,1-.64-.6407V69.4154a.5662.5662,0,0,1,.64-.6406h10.4961a.5667.5667,0,0,1,.64.6406v9.9834a11.3465,11.3465,0,0,1-3.3277,8.5762,13.7344,13.7344,0,0,1-17.664-.0323Z"/>
+      <path d="M461.3838,89.5755a10.9043,10.9043,0,0,1-4.3525-4.5439,14.4642,14.4642,0,0,1-1.5357-6.7842V46.5033a.5657.5657,0,0,1,.64-.64h1.2159a.5659.5659,0,0,1,.64.64v32a10.543,10.543,0,0,0,2.7207,7.5517,10.36,10.36,0,0,0,14.336,0,10.5506,10.5506,0,0,0,2.72-7.5517v-32a.5655.5655,0,0,1,.64-.64h1.2163a.5661.5661,0,0,1,.64.64V78.2474a13.0121,13.0121,0,0,1-3.3921,9.376,11.8983,11.8983,0,0,1-9.0239,3.5518A12.8539,12.8539,0,0,1,461.3838,89.5755Z"/>
+      <path d="M495.9048,90.0228V46.5033a.5657.5657,0,0,1,.64-.64h1.2158a.5663.5663,0,0,1,.64.64v41.664a.2259.2259,0,0,0,.2558.2559h19.2a.5665.5665,0,0,1,.6407.64v.96a.5663.5663,0,0,1-.6407.6406H496.5449A.5656.5656,0,0,1,495.9048,90.0228Z"/>
+      <path d="M554.6436,90.1507l-2.4322-8.832a.2959.2959,0,0,0-.32-.1914H535.123a.2939.2939,0,0,0-.3193.1914l-2.3682,8.7686a.659.659,0,0,1-.7041.5761h-1.2158a.5888.5888,0,0,1-.48-.1923.5824.5824,0,0,1-.0957-.5118l12.0322-43.5839a.643.643,0,0,1,.7036-.5118h1.6a.6442.6442,0,0,1,.7041.5118l12.16,43.5839.0635.1914c0,.3428-.2138.5127-.64.5127h-1.2158A.6423.6423,0,0,1,554.6436,90.1507ZM535.5391,78.9193a.31.31,0,0,0,.2246.0957h15.4878a.31.31,0,0,0,.2241-.0957c.0635-.0645.0737-.1172.0317-.16l-7.8716-28.9277c-.0434-.085-.0864-.1279-.1284-.1279s-.0859.0429-.1279.1279l-7.8721,28.9277C535.4644,78.8021,535.4756,78.8548,535.5391,78.9193Z"/>
+      <path d="M592.4473,90.1507,583.68,69.4154a.2515.2515,0,0,0-.2559-.1924H573.44a.2263.2263,0,0,0-.2559.2559V90.0228a.566.566,0,0,1-.64.6406h-1.2164a.5654.5654,0,0,1-.64-.6406V46.5033a.5655.5655,0,0,1,.64-.64h12.5445a9.9783,9.9783,0,0,1,7.7436,3.2315A12.2019,12.2019,0,0,1,594.56,57.639a12.4342,12.4342,0,0,1-2.24,7.584,9.3626,9.3626,0,0,1-6.08,3.7442q-.2563.1288-.128.32l8.7041,20.6074.064.2558c0,.3428-.1919.5127-.5757.5127h-1.1523A.7027.7027,0,0,1,592.4473,90.1507ZM573.1836,48.3588v18.496a.2267.2267,0,0,0,.2559.2569h10.3037a7.6688,7.6688,0,0,0,6.0166-2.5928,9.878,9.878,0,0,0,2.3037-6.8154,10.2885,10.2885,0,0,0-2.272-6.9766,7.6035,7.6035,0,0,0-6.0483-2.624H573.44A.2263.2263,0,0,0,573.1836,48.3588Z"/>
+    </g>
+    <g style="fill:currentColor;">
+      <g>
+        <path d="m96.835 25.058-39-22.517a12 12 0 0 0-12 0l-39 22.517a12.034 12.034 0 0 0-6 10.392v45.033a12.033 12.033 0 0 0 6 10.393l39 22.516a12 12 0 0 0 12 0l39-22.516a12.033 12.033 0 0 0 6-10.393V35.45a12.033 12.033 0 0 0-6-10.392Zm-2 55.425a4 4 0 0 1-2 3.464l-39 22.517a4 4 0 0 1-4 0l-39-22.517a4 4 0 0 1-2-3.464V35.45a4 4 0 0 1 2-3.464l39-22.517a4 4 0 0 1 4 0l39 22.517a4 4 0 0 1 2 3.464v45.033Z"/>
+        <path d="M74.857 71.005H71.99a4 4 0 0 0-1.925.493l-17.28 9.485-19.951-11.518V46.487l19.95-11.518 17.29 9.455a4 4 0 0 0 1.918.49h2.864a2 2 0 0 0 2-2v-2.712a2 2 0 0 0-1.04-1.754L56.628 27.952a8.04 8.04 0 0 0-7.843.09L28.835 39.56a8.025 8.025 0 0 0-4 6.929v22.976a8 8 0 0 0 4 6.928l19.95 11.519a8.043 8.043 0 0 0 7.843.087l19.19-10.53a2 2 0 0 0 1.038-1.754v-2.71a2 2 0 0 0-2-2Z"/>
+      </g>
+      <g transform="translate(118 34)">
+         <path d="M51.58.362c-8.28.009-14.99 6.719-15 15v17.277c0 8.284 6.716 15 15 15 8.284 0 15-6.716 15-15V15.36c-.01-8.28-6.72-14.99-15-15Zm7 32.277a7 7 0 0 1-14 0V15.36a7 7 0 0 1 14 0V32.64ZM14.914 8.421a7.01 7.01 0 0 1 7.868 6.075.99.99 0 0 0 .984.865h6.03a1.01 1.01 0 0 0 .999-1.097C30.189 6.14 23.216-.02 15.079.381 6.996.932.748 7.696.835 15.796v16.407C.748 40.305 6.996 47.068 15.079 47.62c8.138.401 15.111-5.76 15.716-13.884a1.01 1.01 0 0 0-.998-1.097h-6.03a.99.99 0 0 0-.985.865 7.01 7.01 0 0 1-7.867 6.075 7.164 7.164 0 0 1-6.08-7.184v-16.79a7.164 7.164 0 0 1 6.079-7.184ZM97.757 27.928a12.159 12.159 0 0 0 7.184-11.077v-3.702A12.15 12.15 0 0 0 92.793 1H75.835a1 1 0 0 0-1 1v44a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V29h6.622l7.915 17.414a1 1 0 0 0 .91.586h6.591a1 1 0 0 0 .91-1.414l-8.026-17.658Zm-.816-11.077A4.154 4.154 0 0 1 92.794 21H82.94V9h9.852a4.154 4.154 0 0 1 4.148 4.15v3.7ZM139.835 1h-26a1 1 0 0 0-1 1v44a1 1 0 0 0 1 1h26a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-19V27h13a1 1 0 0 0 1-1v-6a1 1 0 0 0-1-1h-13V9h19a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1ZM177.835 1h-6a1 1 0 0 0-1 1v22.648a7.007 7.007 0 1 1-14 0V2a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v22.648a15.003 15.003 0 1 0 30 0V2a1 1 0 0 0-1-1Z"/>
+         <rect width="8" height="38" x="186.835" y="1" rx="1"/>
+      </g>
+    </g>
+  </g>`
+];
+
+Directory: ./app/layout
+File: ./app/layout/index.ts
+export * from './default-layout';
+
+Directory: ./app/layout/default-layout
+File: ./app/layout/default-layout/default-layout.component.html
+@if (isAuthenticated) {
+<!--sidebar-->
+<c-sidebar #sidebar1="cSidebar" class="d-print-none sidebar sidebar-fixed border-end" colorScheme="dark" id="sidebar1"
+  visible>
+  <c-sidebar-header class="border-bottom">
+    <c-sidebar-brand [routerLink]="[]">
+      <svg [class]="{icon: false}" cIcon class="sidebar-brand-full" height="32" name="logo" title="CoreUI Logo"></svg>
+      <svg cIcon class="sidebar-brand-narrow" height="32" name="signet" title="CoreUI Logo"></svg>
+    </c-sidebar-brand>
+  </c-sidebar-header>
+
+  <ng-scrollbar #scrollbar="ngScrollbar" (updated)="onScrollbarUpdate(scrollbar.state)" class="overflow"
+    pointerEventsMethod="scrollbar" visibility="hover">
+    <c-sidebar-nav #overflow [navItems]="navItems" dropdownMode="close" compact />
+  </ng-scrollbar>
+  @if (!sidebar1.narrow) {
+  <c-sidebar-footer cSidebarToggle="sidebar1" class="border-top d-none d-lg-flex" toggle="unfoldable"
+    style="cursor: pointer;">
+    <button cSidebarToggler aria-label="Toggle sidebar fold"></button>
+  </c-sidebar-footer>
+  }
+</c-sidebar>
+
+<!--main-->
+<div class="wrapper d-flex flex-column min-vh-100">
+  <!--app-header-->
+  <app-default-header [cShadowOnScroll]="'sm'" class="mb-4 d-print-none header header-sticky p-0 shadow-sm"
+    position="sticky" sidebarId="sidebar1" />
+  <!--app-body-->
+  <div class="body flex-grow-1">
+    <c-container breakpoint="lg" class="h-auto px-4">
+      <router-outlet />
+    </c-container>
+  </div>
+  <!--app footer-->
+  <app-default-footer />
+</div>
+} @else {
+<div>Redirecting to auth...</div>
+<meta http-equiv="refresh" content="1; URL=/" />
+
+}
+Directory: ./app/layout/default-layout/default-footer
+File: ./app/layout/default-layout/default-footer/default-footer.component.ts
+import { Component } from '@angular/core';
+import { FooterComponent } from '@coreui/angular';
+
+@Component({
+    selector: 'app-default-footer',
+    templateUrl: './default-footer.component.html',
+    styleUrls: ['./default-footer.component.scss'],
+    standalone: true,
+})
+export class DefaultFooterComponent extends FooterComponent {
+  constructor() {
+    super();
+  }
+}
+
+File: ./app/layout/default-layout/default-footer/default-footer.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DefaultFooterComponent } from './default-footer.component';
+
+describe('DefaultFooterComponent', () => {
+  let component: DefaultFooterComponent;
+  let fixture: ComponentFixture<DefaultFooterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [DefaultFooterComponent]
+})
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DefaultFooterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/layout/default-layout/default-footer/default-footer.component.scss
+
+File: ./app/layout/default-layout/default-footer/default-footer.component.html
+<!--<c-footer>-->
+  <div>
+    <a href="https://imodex.ro/" target="_blank">imoDEX</a>
+    <span> &copy; 2024</span>
+  </div>
+  <div class="ms-auto">
+    Powered by
+    <a href="https://uvg.ro" target="_blank">
+      <span> Urban Vista Group</span>
+    </a>
+  </div>
+<!--</c-footer>-->
+
+File: ./app/layout/default-layout/index.ts
+export * from './default-footer/default-footer.component';
+export * from './default-header/default-header.component';
+export * from './default-layout.component';
+
+File: ./app/layout/default-layout/default-layout.component.ts
+import { Component, inject, NgZone, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NgScrollbar } from 'ngx-scrollbar';
+
+import { IconDirective } from '@coreui/icons-angular';
+import {
+  ContainerComponent,
+  ShadowOnScrollDirective,
+  SidebarBrandComponent,
+  SidebarComponent,
+  SidebarFooterComponent,
+  SidebarHeaderComponent,
+  SidebarNavComponent,
+  SidebarToggleDirective,
+  SidebarTogglerDirective
+} from '@coreui/angular';
+
+import { DefaultFooterComponent, DefaultHeaderComponent } from './';
+import { navItems } from './_nav';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+
+function isOverflown(element: HTMLElement) {
+  return (
+    element.scrollHeight > element.clientHeight ||
+    element.scrollWidth > element.clientWidth
+  );
+}
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './default-layout.component.html',
+  styleUrls: ['./default-layout.component.scss'],
+  standalone: true,
+  imports: [
+    SidebarComponent,
+    SidebarHeaderComponent,
+    SidebarBrandComponent,
+    RouterLink,
+    IconDirective,
+    NgScrollbar,
+    SidebarNavComponent,
+    SidebarFooterComponent,
+    SidebarToggleDirective,
+    SidebarTogglerDirective,
+    DefaultHeaderComponent,
+    ShadowOnScrollDirective,
+    ContainerComponent,
+    RouterOutlet,
+    DefaultFooterComponent
+  ]
+})
+export class DefaultLayoutComponent implements OnInit {
+  public navItems = navItems;
+
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  isAuthenticated = false;
+  // router: Router | undefined;
+
+  constructor(
+    // private oidcSecurityService: OidcSecurityService,
+    private router: Router,
+    private ngZone: NgZone
+  ) {}
+
+  onScrollbarUpdate($event: any) {
+    // if ($event.verticalUsed) {
+    // console.log('verticalUsed', $event.verticalUsed);
+    // }
+  }
+
+
+
+
+  ngOnInit() {
+    // this.userToken$ = this.oidcSecurityService.getAccessToken();
+
+    this.oidcSecurityService.isAuthenticated$.subscribe(
+      ({ isAuthenticated }) => {
+        this.isAuthenticated = isAuthenticated;
+        // this.userToken$ = this.userToken$;
+        // this.userToken$ = this.oidcSecurityService.getAccessToken();       
+        // console.warn('default BBBBBBBBBBBBBBB authenticated: ', isAuthenticated);
+        if (!isAuthenticated) {
+          console.log("FUCK OFFFF");
+          this.ngZone.run(() => {
+            this.router.navigate(['/home']).then(navigated => {
+              if (navigated) {
+                console.warn('Navigation to /home was successful');
+              } else {
+                console.warn('Navigation to /home failed');
+              }
+            });
+          });
+        }
+      }
+    );
+
+  }
+
+
+}
+
+File: ./app/layout/default-layout/_nav.ts
+import { INavData } from '@coreui/angular';
+
+export const navItems: INavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/home',
+    iconComponent: { name: 'cil-speedometer' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+  },
+  {
+    name: 'Contacte',
+    url: '/contacts',
+    iconComponent: { name: 'cil-speedometer' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+  },
+  {
+    name: 'Components',
+    title: true
+  },
+  {
+    name: 'Widgets',
+    url: '/widgets',
+    iconComponent: { name: 'cil-calculator' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+  },
+  {
+    title: true,
+    name: 'Extras'
+  },
+  {
+    name: 'Pages',
+    url: '/login',
+    iconComponent: { name: 'cil-star' },
+    children: [
+      {
+        name: 'Login',
+        url: '/login',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'Register',
+        url: '/register',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'Error 404',
+        url: '/404',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'Error 500',
+        url: '/500',
+        icon: 'nav-icon-bullet'
+      }
+    ]
+  },
+  {
+    name: 'Icons',
+    iconComponent: { name: 'cil-star' },
+    url: '/icons',
+    children: [
+      {
+        name: 'CoreUI Free',
+        url: '/icons/coreui-icons',
+        icon: 'nav-icon-bullet',
+        badge: {
+          color: 'success',
+          text: 'FREE :)'
+        }
+      },
+      {
+        name: 'CoreUI Flags',
+        url: '/icons/flags',
+        icon: 'nav-icon-bullet'
+      },
+      {
+        name: 'CoreUI Brands',
+        url: '/icons/brands',
+        icon: 'nav-icon-bullet'
+      }
+    ]
+  },
+  {
+    title: true,
+    name: 'Links',
+    class: 'mt-auto'
+  },
+  {
+    name: 'Docs',
+    url: 'https://coreui.io/angular/docs/5.x/',
+    iconComponent: { name: 'cil-description' },
+    attributes: { target: '_blank' }
+  }
+];
+
+File: ./app/layout/default-layout/default-layout.component.scss
+:host {
+  .ng-scrollbar {
+    --scrollbar-padding: 1px;
+    --scrollbar-size: 5px;
+    --scrollbar-thumb-color: var(--cui-gray-500, #999);
+    --scrollbar-thumb-hover-color: var(--cui-gray-400, #999);
+    --scrollbar-hover-size: calc(var(--scrollbar-size) * 1.5);
+  }
+}
+
+
+// ng-scrollbar css variables
+// .cui-scrollbar {
+//  --scrollbar-border-radius: 7px;
+//  --scrollbar-padding: 1px;
+//  --scrollbar-viewport-margin: 0;
+//  --scrollbar-track-color: transparent;
+//  --scrollbar-wrapper-color: transparent;
+//  --scrollbar-thumb-color: rgba(0, 0, 0, 0.2);
+//  --scrollbar-thumb-hover-color: var(--scrollbar-thumb-color);
+//  --scrollbar-size: 5px;
+//  --scrollbar-hover-size: var(--scrollbar-size);
+//  --scrollbar-thumb-transition: height ease-out 150ms, width ease-out 150ms;
+//  --scrollbar-track-transition: height ease-out 150ms, width ease-out 150ms;
+// }
+
+Directory: ./app/layout/default-layout/default-header
+File: ./app/layout/default-layout/default-header/default-header.component.html
+<!--<c-header class="mb-4 d-print-none" position="sticky">-->
+<ng-container>
+  <c-container [fluid]="true" class="border-bottom px-4">
+    <div class="d-sm-block d-md-none">
+      <button
+        [cSidebarToggle]="sidebarId"
+        cHeaderToggler
+        class="btn"
+        toggle="visible"
+        style="margin-inline-start: -14px;"
+        aria-label="Toggle sidebar navigation"
+      >
+        <svg cIcon name="cilMenu" size="lg"></svg>
+      </button>
+    </div>
+    <!--
+    <c-header-nav class="d-none d-md-flex">
+      <c-nav-item>
+        <a cNavLink routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/users" routerLinkActive="active">Users</a>
+      </c-nav-item>
+      <c-nav-item>
+        <a cNavLink routerLink="/settings" routerLinkActive="active">Settings</a>
+      </c-nav-item>
+    </c-header-nav> -->
+
+    <c-header-nav class="d-none d-md-flex ms-auto ">
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilBell" size="lg"></svg>
+      </a>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilList" size="lg"></svg>
+      </a>
+      <a cNavLink>
+        <svg cIcon class="my-1" name="cilEnvelopeOpen" size="lg"></svg>
+      </a>
+    </c-header-nav>
+
+    <c-header-nav class="ms-auto ms-md-0">
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+      <ng-container *ngTemplateOutlet="themeDropdown" />
+      <div class="nav-item py-1">
+        <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+      </div>
+    </c-header-nav>
+
+    <c-header-nav class="mx-0">
+      <ng-container *ngTemplateOutlet="userDropdown" />
+    </c-header-nav>
+
+  </c-container>
+  <!-- <c-container [fluid]="true" class="px-4">
+    <c-breadcrumb-router />
+  </c-container> -->
+</ng-container>
+<!--</c-header>-->
+
+<ng-template #userDropdown>
+  <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
+    <button [caret]="false" cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
+      <c-avatar
+        shape="rounded-1"
+        [size]="'md'"
+        src="./assets/images/avatars/8.jpg"
+        status="success"
+        textColor="primary"
+        alt="User avatar"
+      />
+    </button>
+    <ul cDropdownMenu class="pt-0 w-auto">
+      <li>
+        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2 rounded-top">
+          Account
+        </h6>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilBell"></svg>
+          Updates
+          <c-badge class="ms-2 float-end" color="info"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="/apps/email/inbox">
+          <svg cIcon class="me-2" name="cilEnvelopeOpen"></svg>
+          Messages
+          <c-badge class="ms-2 float-end" color="success">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilTask"></svg>
+          Tasks
+          <c-badge class="ms-2 float-end" color="danger"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilCommentSquare"></svg>
+          Comments
+          <c-badge class="ms-auto" color="warning"> 42</c-badge>
+        </a>
+      </li>
+      <li>
+        <h6 cDropdownHeader class="bg-body-secondary text-body-secondary fw-semibold py-2">
+          Settings
+        </h6>
+      </li>
+      <li></li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilUser"></svg>
+          Profile
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilSettings"></svg>
+          Settings
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilCreditCard"></svg>
+          Payments
+          <c-badge class="ms-2 float-end" color="secondary">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilFile"></svg>
+          Projects
+          <c-badge class="ms-2 float-end" color="primary">
+            42
+          </c-badge>
+        </a>
+      </li>
+      <li>
+        <hr cDropdownDivider />
+      </li>
+      <li>
+        <a cDropdownItem routerLink="">
+          <svg cIcon class="me-2" name="cilLockLocked"></svg>
+          Lock Account
+        </a>
+      </li>
+      <li>
+        <a cDropdownItem (click)="logout()" style="cursor: pointer;">
+          <svg cIcon class="me-2" name="cilAccountLogout"></svg>
+          Logout
+        </a>
+      </li>
+    </ul>
+  </c-dropdown>
+</ng-template>
+
+<ng-template #themeDropdown>
+  <c-dropdown alignment="end" variant="nav-item">
+    <button [caret]="false" cDropdownToggle aria-label="Open theme picker">
+      <svg cIcon [name]="icons()" size="lg"></svg>
+    </button>
+    <div cDropdownMenu>
+      @for (mode of colorModes; track mode.name) {
+        <button
+          (click)="colorMode.set(mode.name)"
+          [active]="colorMode()===mode.name"
+          [routerLink]="[]"
+          cDropdownItem
+          class="d-flex align-items-center"
+        >
+          <svg cIcon class="me-2" [name]="mode.icon" size="lg"></svg>
+          {{ mode.text }}
+        </button>
+      }
+    </div>
+  </c-dropdown>
+</ng-template>
+
+File: ./app/layout/default-layout/default-header/default-header.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
+import {
+  AvatarModule,
+  BadgeModule,
+  BreadcrumbModule,
+  ButtonGroupModule,
+  DropdownModule,
+  GridModule,
+  HeaderModule,
+  NavModule,
+  ProgressModule,
+  SidebarModule
+} from '@coreui/angular';
+import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from '../../../icons/icon-subset';
+import { DefaultHeaderComponent } from './default-header.component';
+
+describe('DefaultHeaderComponent', () => {
+  let component: DefaultHeaderComponent;
+  let fixture: ComponentFixture<DefaultHeaderComponent>;
+  let iconSetService: IconSetService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [GridModule, HeaderModule, IconModule, NavModule, BadgeModule, AvatarModule, DropdownModule, BreadcrumbModule, RouterTestingModule, SidebarModule, ProgressModule, ButtonGroupModule, ReactiveFormsModule, DefaultHeaderComponent],
+    providers: [IconSetService]
+})
+      .compileComponents();
+  });
+
+  beforeEach(() => {
+    iconSetService = TestBed.inject(IconSetService);
+    iconSetService.icons = { ...iconSubset };
+
+    fixture = TestBed.createComponent(DefaultHeaderComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/layout/default-layout/default-header/default-header.component.scss
+
+File: ./app/layout/default-layout/default-header/default-header.component.ts
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+
+import { Component, computed, DestroyRef, inject, Input } from '@angular/core';
+import {
+  AvatarComponent,
+  BadgeComponent,
+  BreadcrumbRouterComponent,
+  ColorModeService,
+  ContainerComponent,
+  DropdownComponent,
+  DropdownDividerDirective,
+  DropdownHeaderDirective,
+  DropdownItemDirective,
+  DropdownMenuDirective,
+  DropdownToggleDirective,
+  HeaderComponent,
+  HeaderNavComponent,
+  HeaderTogglerDirective,
+  NavItemComponent,
+  NavLinkDirective,
+  ProgressBarDirective,
+  ProgressComponent,
+  SidebarToggleDirective,
+  TextColorDirective,
+  ThemeDirective
+} from '@coreui/angular';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ActivatedRoute, RouterLink, RouterLinkActive } from '@angular/router';
+import { IconDirective } from '@coreui/icons-angular';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { delay, filter, map, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
+@Component({
+  selector: 'app-default-header',
+  templateUrl: './default-header.component.html',
+  standalone: true,
+  imports: [ContainerComponent, HeaderTogglerDirective, SidebarToggleDirective, IconDirective, HeaderNavComponent, NavItemComponent, NavLinkDirective, RouterLink, RouterLinkActive, NgTemplateOutlet, BreadcrumbRouterComponent, ThemeDirective, DropdownComponent, DropdownToggleDirective, TextColorDirective, AvatarComponent, DropdownMenuDirective, DropdownHeaderDirective, DropdownItemDirective, BadgeComponent, DropdownDividerDirective, ProgressBarDirective, ProgressComponent, NgStyle]
+})
+export class DefaultHeaderComponent extends HeaderComponent {
+
+  private readonly oidcSecurityService = inject(OidcSecurityService);
+  protected readonly authenticated = this.oidcSecurityService.authenticated;
+
+  isAuthenticated = false;
+  router: any;
+  redirectContent: string | undefined;
+
+  private destroy$ = new Subject<void>();
+
+
+
+  readonly #activatedRoute: ActivatedRoute = inject(ActivatedRoute);
+  readonly #colorModeService = inject(ColorModeService);
+  readonly colorMode = this.#colorModeService.colorMode;
+  readonly #destroyRef: DestroyRef = inject(DestroyRef);
+
+  readonly colorModes = [
+    { name: 'light', text: 'Light', icon: 'cilSun' },
+    { name: 'dark', text: 'Dark', icon: 'cilMoon' },
+    { name: 'auto', text: 'Auto', icon: 'cilContrast' }
+  ];
+
+  readonly icons = computed(() => {
+    const currentMode = this.colorMode();
+    return this.colorModes.find(mode=> mode.name === currentMode)?.icon ?? 'cilSun';
+  });
+
+  constructor() {
+    super();
+    this.#colorModeService.localStorageItemName.set('theme-default');
+    this.#colorModeService.eventName.set('ColorSchemeChange');
+
+    this.#activatedRoute.queryParams
+      .pipe(
+        delay(1),
+        map(params => {
+          const themeParam = <string>params['theme']?.match(/^[A-Za-z0-9\s]+/)?.[0];
+          return themeParam || this.getThemeBasedOnTime();
+        }),
+        filter(theme => ['dark', 'light', 'auto'].includes(theme)),
+        tap(theme => {
+          // this.colorMode.set(theme);
+          this.colorMode.set('dark');
+
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe();
+      
+  }
+
+
+  private getThemeBasedOnTime(): 'dark' | 'light' | 'auto' {
+    const hour = new Date().getHours();
+    if (hour >= 18 || hour < 6) {
+      return 'dark';  // Night time
+    } else {
+      return 'light';  // Day time
+    }
+  }
+
+  setThemeBasedOnTime() {
+    const hour = new Date().getHours();
+    console.log("Hour: " + hour);
+    if (hour >= 18 || hour < 3) {
+      this.colorMode.set('light');
+      console.log("set dark....");
+    } else {
+      this.colorMode.set('light');
+      console.log("set light.... ");
+    }
+  }
+
+  ngOnInit(): void {
+    this.setThemeBasedOnTime();
+    this.oidcSecurityService.isAuthenticated$.subscribe(
+      ({ isAuthenticated }) => {
+        this.isAuthenticated = isAuthenticated;
+        if (!isAuthenticated) {
+          this.redirectContent = `0; URL=${window.location.origin}/`;
+        }
+      },
+      error => {
+        console.error('Error checking authentication status', error);
+      }
+    );
+  }
+
+  logout(): void {
+    this.oidcSecurityService
+      .logoff()
+      .subscribe((result) => console.log(result));
+    // localStorage.clear();
+    sessionStorage.clear();
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+
+  @Input() sidebarId: string = 'sidebar1';
+
+  public newMessages = [
+    {
+      id: 0,
+      from: 'Jessica Williams',
+      avatar: '7.jpg',
+      status: 'success',
+      title: 'Urgent: System Maintenance Tonight',
+      time: 'Just now',
+      link: 'apps/email/inbox/message',
+      message: 'Attention team, we\'ll be conducting critical system maintenance tonight from 10 PM to 2 AM. Plan accordingly...'
+    },
+    {
+      id: 1,
+      from: 'Richard Johnson',
+      avatar: '6.jpg',
+      status: 'warning',
+      title: 'Project Update: Milestone Achieved',
+      time: '5 minutes ago',
+      link: 'apps/email/inbox/message',
+      message: 'Kudos on hitting sales targets last quarter! Let\'s keep the momentum. New goals, new victories ahead...'
+    },
+    {
+      id: 2,
+      from: 'Angela Rodriguez',
+      avatar: '5.jpg',
+      status: 'danger',
+      title: 'Social Media Campaign Launch',
+      time: '1:52 PM',
+      link: 'apps/email/inbox/message',
+      message: 'Exciting news! Our new social media campaign goes live tomorrow. Brace yourselves for engagement...'
+    },
+    {
+      id: 3,
+      from: 'Jane Lewis',
+      avatar: '4.jpg',
+      status: 'info',
+      title: 'Inventory Checkpoint',
+      time: '4:03 AM',
+      link: 'apps/email/inbox/message',
+      message: 'Team, it\'s time for our monthly inventory check. Accurate counts ensure smooth operations. Let\'s nail it...'
+    },
+    {
+      id: 3,
+      from: 'Ryan Miller',
+      avatar: '4.jpg',
+      status: 'info',
+      title: 'Customer Feedback Results',
+      time: '3 days ago',
+      link: 'apps/email/inbox/message',
+      message: 'Our latest customer feedback is in. Let\'s analyze and discuss improvements for an even better service...'
+    }
+  ];
+
+  public newNotifications = [
+    { id: 0, title: 'New user registered', icon: 'cilUserFollow', color: 'success' },
+    { id: 1, title: 'User deleted', icon: 'cilUserUnfollow', color: 'danger' },
+    { id: 2, title: 'Sales report is ready', icon: 'cilChartPie', color: 'info' },
+    { id: 3, title: 'New client', icon: 'cilBasket', color: 'primary' },
+    { id: 4, title: 'Server overloaded', icon: 'cilSpeedometer', color: 'warning' }
+  ];
+
+  public newStatus = [
+    { id: 0, title: 'CPU Usage', value: 25, color: 'info', details: '348 Processes. 1/4 Cores.' },
+    { id: 1, title: 'Memory Usage', value: 70, color: 'warning', details: '11444GB/16384MB' },
+    { id: 2, title: 'SSD 1 Usage', value: 90, color: 'danger', details: '243GB/256GB' }
+  ];
+
+  public newTasks = [
+    { id: 0, title: 'Upgrade NPM', value: 0, color: 'info' },
+    { id: 1, title: 'ReactJS Version', value: 25, color: 'danger' },
+    { id: 2, title: 'VueJS Version', value: 50, color: 'warning' },
+    { id: 3, title: 'Add new layouts', value: 75, color: 'info' },
+    { id: 4, title: 'Angular Version', value: 100, color: 'success' }
+  ];
+
+}
+
+Directory: ./app/models
+File: ./app/models/contact.model.ts
+export interface Contact {
+  contactid: string;       // UUID
+  firstname: string;       // VARCHAR(50)
+  lastname: string;        // VARCHAR(50)
+  email: string;           // VARCHAR(100)
+  phone?: string;          // VARCHAR(20)
+  addr?: string;           // TEXT
+  userID?: string;         // UUID
+  createdAt: string;       // TIMESTAMP
+}
+File: ./app/app.component.spec.ts
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'imodex' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('imodex');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, imodex');
+  });
+});
+
+Directory: ./app/callback
+File: ./app/callback/callback.component.html
+<p>Setting everything up...you are getting redirected...</p>
+
+File: ./app/callback/callback.component.ts
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { OidcSecurityService } from 'angular-auth-oidc-client';
+
+@Component({
+  selector: 'app-callback',
+  standalone: true,
+  templateUrl: './callback.component.html',
+  styleUrls: ['./callback.component.css'],
+})
+export class CallbackComponent implements OnInit {
+  constructor(
+    private oidcSecurityService: OidcSecurityService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    // console.log("hereeeeeeeeee");
+    this.oidcSecurityService.checkAuth().subscribe(({ isAuthenticated }) => {
+      if (isAuthenticated) {
+        // console.warn('default OOOOOOOOOOOOOOOOOOOOOOOOO authenticated: ', isAuthenticated);
+        this.router.navigate(['/']);
+      } else {
+        // Handle authentication failure (optional)
+        this.router.navigate(['/']);
+      }
+    });
+  }
+}
+
+File: ./app/callback/callback.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { CallbackComponent } from './callback.component';
+
+describe('CallbackComponent', () => {
+  let component: CallbackComponent;
+  let fixture: ComponentFixture<CallbackComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [CallbackComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(CallbackComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/callback/callback.component.css
+
+Directory: ./app/views
+Directory: ./app/views/home
+File: ./app/views/home/home.component.scss
+
+File: ./app/views/home/home.component.html
+<c-card>
+    <c-card-header>
+      <!-- ABC -->
+    </c-card-header>
+    <c-card-body>
+      <br />
+      <!-- Is Authenticated: {{ isAuthenticated }}
+      <p style="word-wrap: break-word">{{ userToken$ | async | json }}</p>
+      
+      <div *ngIf="lolz$ | async as ud">
+          <pre>Email: {{ ud.email }}</pre>
+          <pre>Name: {{ ud.name }}</pre>
+          <pre>azp: {{ ud.azp }}</pre>
+          <pre>resource_access: {{ ud.resource_access }}</pre>
+          <pre>email_verified: {{ ud.email_verified }}</pre>
+          <pre>exp: {{ ud.exp * 1000 | date:'yyyy-MM-dd HH:mm:ss Z' }}</pre>
+      
+      
+      
+          
+        </div>
+      
+      
+      <pre>{{ userData$ | async | json }}</pre>
+      <pre>{{ configuration$ | async | json}}</pre>
+       -->
+       <button (click)="callApi()">Call API</button>
+       <pre>{{ response | json }}</pre>
+       <button (click)="showToast()">Show Toast</button>
+    </c-card-body>
+  </c-card>
+File: ./app/views/home/home.component.ts
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { IconDirective, IconSetService } from '@coreui/icons-angular';
+import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent } from '@coreui/angular';
+
+// import { OidcSecurityService } from 'angular-auth-oidc-client';
+import { map } from 'rxjs';
+import { Observable } from 'rxjs/internal/Observable';
+import { AsyncPipe, CommonModule, JsonPipe, DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { ToastService } from '../../utils/toast.service';
+import { ToasterPlacement } from '@coreui/angular-pro';
+import { ToastContainerComponent } from '../../utils/toast-container.component';
+import { AppToastComponent } from '../../utils/app-toast.component';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
+  imports: [
+    CardComponent,
+    CardHeaderComponent,
+    CardBodyComponent,
+    JsonPipe,
+    AsyncPipe,
+    DatePipe,
+    CommonModule
+  ]
+})
+export class HomeComponent implements OnInit {
+  public title = 'Homes';
+  response: any;
+
+  placement = ToasterPlacement.TopCenter;
+
+  @ViewChild(ToastContainerComponent) toastContainer!: ToastContainerComponent;
+
+
+  // private readonly oidcSecurityService = inject(OidcSecurityService);
+  // userToken$: Observable<string | null> | undefined;
+  // lolz$: Observable<any | null> | undefined;
+
+  // userData$ = this.oidcSecurityService.userData$;
+  // isAuthenticated = false;
+  // userToken$ = this.oidcSecurityService.getAccessToken();
+
+
+  // configuration$ = this.oidcSecurityService.getConfiguration();
+
+  ngOnInit() {
+    // this.userToken$ = this.oidcSecurityService.getAccessToken();
+
+    // this.oidcSecurityService.isAuthenticated$.subscribe(
+    //   ({ isAuthenticated }) => {
+    //     this.isAuthenticated = isAuthenticated;
+    //     // this.userToken$ = this.userToken$;
+    //     this.userToken$ = this.oidcSecurityService.getAccessToken();       
+    //     console.warn('yyyy authenticated: ', isAuthenticated);
+    //     // if(!isAuthenticated){
+    //     //   this.router.navigate(['/']);
+    //     // }
+    //   }
+    // );
+
+    // this.oidcSecurityService.isAuthenticated$.subscribe(
+    //   ({ isAuthenticated }) => {
+    //     this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
+    //       map(payload => {
+    //         return {
+    //           sub: payload['sub'],
+    //           name: payload['name'],
+    //           family_name: payload['family_name'],
+    //           given_name: payload['given_name'],
+    //           email: payload['email'],
+    //           azp: payload['azp'],
+    //           resource_access: payload['resource_access']['feclient']['roles'],
+    //           email_verified: payload['email_verified'],
+    //           exp: payload['exp'],
+    //         };
+    //       })
+    //     );
+    //   }
+    // );
+
+    // this.oidcSecurityService.getPayloadFromAccessToken().subscribe(
+    //   {
+    //   // next: (accessTokenPayload) => {
+    //   next: (accessTokenPayload) => {
+    //     this.lolz$ = this.oidcSecurityService.getPayloadFromAccessToken().pipe(
+    //       map(payload => {
+    //         return {
+    //           sub: payload['sub'],
+    //           name: payload['name'],
+    //           family_name: payload['family_name'],
+    //           given_name: payload['given_name'],
+    //           email: payload['email'],
+    //           azp: payload['azp'],
+    //           resource_access: payload['resource_access']['feclient']['roles'],
+    //           email_verified: payload['email_verified'],
+    //           exp: payload['exp'],
+
+              
+
+    //         };
+    //       })
+    //     );
+    //   },
+    //   error: (err) => {
+    //     console.error('Error fetching access token payload', err);
+    //   }
+    // });
+
+  }
+
+  constructor(private http: HttpClient, private toastService: ToastService) {}
+
+  callApi() {
+    this.http.get('https://e7e60ef9f5f3.sn.mynetname.net:9443/rpc/me').subscribe(
+      // this.http.get('http://localhost:3000').subscribe(
+      (data) => (this.response = data),
+      (error) => console.error(error)
+    );
+  }
+
+  showToast() {
+    this.toastService.showToast({
+      title: 'Notification',
+      message: 'This is a tost in HOME COMPONENT.',
+      color: 'info',
+      autohide: true,
+      placement: this.placement,
+      delay: 3000
+    });
+  }
+
+}
+
+File: ./app/views/home/routes.ts
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '',
+    data: {
+      title: 'HOME'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
+      },
+      {
+        path: '',
+        loadComponent: () => import('./home.component').then(m => m.HomeComponent),
+        data: {
+          title: 'Home'
+        }
+      }
+    ]
+  }
+];
+
+File: ./app/views/home/home.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HomeComponent } from './home.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+Directory: ./app/views/icons
+File: ./app/views/icons/coreui-icons.component.ts
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { IconDirective, IconSetService } from '@coreui/icons-angular';
+import { brandSet, flagSet, freeSet } from '@coreui/icons';
+import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent } from '@coreui/angular';
+
+
+@Component({
+  templateUrl: 'coreui-icons.component.html',
+  providers: [IconSetService],
+  standalone: true,
+  imports: [
+    CardComponent,
+    CardHeaderComponent,
+    CardBodyComponent,
+    ColComponent,
+    IconDirective,
+    RowComponent
+  ]
+})
+export class CoreUIIconsComponent implements OnInit {
+  public title = 'CoreUI Icons';
+  public icons!: [string, string[]][];
+
+  constructor(private route: ActivatedRoute, public iconSet: IconSetService)
+  {
+    console.log('IconsModule loaded');
+    iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
+  }
+
+  ngOnInit() {
+    const path = this.route?.routeConfig?.path;
+    let prefix = 'cil';
+    if (path === 'coreui-icons') {
+      this.title = `${this.title} - Free`;
+      prefix = 'cil';
+    } else if (path === 'brands') {
+      this.title = `${this.title} - Brands`;
+      prefix = 'cib';
+    } else if (path === 'flags') {
+      this.title = `${this.title} - Flags`;
+      prefix = 'cif';
+    }
+    this.icons = this.getIconsView(prefix);
+  }
+
+  toKebabCase(str: string) {
+    return str.replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase();
+  }
+
+  getIconsView(prefix: string) {
+    return Object.entries(this.iconSet.icons).filter((icon) => {
+      return icon[0].startsWith(prefix);
+    });
+  }
+
+  
+}
+
+File: ./app/views/icons/coreui-icons.component.html
+<c-card>
+  <c-card-header>
+    {{ title }}
+  </c-card-header>
+  <c-card-body>
+    <c-row class="text-center">
+      @for (icon of icons; track icon[0]) {
+        <c-col class="mb-5" [md]="3" [sm]="4" [xl]="2" [xs]="6">
+          <svg cIcon [name]="icon[0]" [title]="icon[0]" size="3xl"></svg>
+          <div>{{ toKebabCase(icon[0]) }}</div>
+        </c-col>
+      }
+    </c-row>
+  </c-card-body>
+</c-card>
+
+File: ./app/views/icons/routes.ts
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '',
+    data: {
+      title: 'Icons'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: 'coreui-icons',
+        pathMatch: 'full'
+      },
+      {
+        path: 'coreui-icons',
+        loadComponent: () => import('./coreui-icons.component').then(m => m.CoreUIIconsComponent),
+        data: {
+          title: 'CoreUI Icons'
+        }
+      },
+      {
+        path: 'brands',
+        loadComponent: () => import('./coreui-icons.component').then(m => m.CoreUIIconsComponent),
+        data: {
+          title: 'Brands'
+        }
+      },
+      {
+        path: 'flags',
+        loadComponent: () => import('./coreui-icons.component').then(m => m.CoreUIIconsComponent),
+        data: {
+          title: 'Flags'
+        }
+      }
+    ]
+  }
+];
+
+Directory: ./app/views/pages
+Directory: ./app/views/pages/page404
+File: ./app/views/pages/page404/page404.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ButtonModule, FormModule, GridModule } from '@coreui/angular';
+import { IconModule } from '@coreui/icons-angular';
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from '../../../icons/icon-subset';
+import { Page404Component } from './page404.component';
+
+describe('Page404Component', () => {
+  let component: Page404Component;
+  let fixture: ComponentFixture<Page404Component>;
+  let iconSetService: IconSetService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [FormModule, GridModule, ButtonModule, IconModule, Page404Component],
+    providers: [IconSetService]
+})
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    iconSetService = TestBed.inject(IconSetService);
+    iconSetService.icons = { ...iconSubset };
+
+    fixture = TestBed.createComponent(Page404Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/views/pages/page404/page404.component.ts
+import { Component } from '@angular/core';
+import { IconDirective } from '@coreui/icons-angular';
+import { ContainerComponent, RowComponent, ColComponent, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
+
+@Component({
+    selector: 'app-page404',
+    templateUrl: './page404.component.html',
+    styleUrls: ['./page404.component.scss'],
+    standalone: true,
+    imports: [ContainerComponent, RowComponent, ColComponent, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective]
+})
+export class Page404Component {
+
+  constructor() { }
+
+}
+
+File: ./app/views/pages/page404/page404.component.scss
+
+File: ./app/views/pages/page404/page404.component.html
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="6">
+        <div class="clearfix">
+          <h1 class="float-start display-3 me-4">404</h1>
+          <h4 class="pt-3">Oops! You're lost.</h4>
+          <p class="text-body-secondary float-start">
+            The page you are looking for was not found.
+          </p>
+        </div>
+        <c-input-group class="input-prepend">
+          <span cInputGroupText>
+            <svg cIcon name="cilMagnifyingGlass"></svg>
+          </span>
+          <input cFormControl placeholder="What are you looking for?" type="text" />
+          <button cButton color="info">Search</button>
+        </c-input-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+Directory: ./app/views/pages/page500
+File: ./app/views/pages/page500/page500.component.scss
+
+File: ./app/views/pages/page500/page500.component.html
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="6">
+        <span class="clearfix">
+          <h1 class="float-start display-3 me-4">500</h1>
+          <h4 class="pt-3">Houston, we have a problem!</h4>
+          <p class="text-body-secondary float-start">
+            The page you are looking for is temporarily unavailable.
+          </p>
+        </span>
+        <c-input-group class="input-prepend">
+          <span cInputGroupText>
+            <svg cIcon name="cilMagnifyingGlass"></svg>
+          </span>
+          <input cFormControl placeholder="What are you looking for?" type="text" />
+          <button cButton color="info">Search</button>
+        </c-input-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+File: ./app/views/pages/page500/page500.component.ts
+import { Component } from '@angular/core';
+import { IconDirective } from '@coreui/icons-angular';
+import { ContainerComponent, RowComponent, ColComponent, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
+
+@Component({
+    selector: 'app-page500',
+    templateUrl: './page500.component.html',
+    styleUrls: ['./page500.component.scss'],
+    standalone: true,
+    imports: [ContainerComponent, RowComponent, ColComponent, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective]
+})
+export class Page500Component {
+
+  constructor() { }
+
+}
+
+File: ./app/views/pages/page500/page500.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ButtonModule, FormModule, GridModule } from '@coreui/angular';
+import { IconModule } from '@coreui/icons-angular';
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from '../../../icons/icon-subset';
+import { Page500Component } from './page500.component';
+
+describe('Page500Component', () => {
+  let component: Page500Component;
+  let fixture: ComponentFixture<Page500Component>;
+  let iconSetService: IconSetService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [GridModule, ButtonModule, FormModule, IconModule, Page500Component],
+    providers: [IconSetService]
+})
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    iconSetService = TestBed.inject(IconSetService);
+    iconSetService.icons = { ...iconSubset };
+
+    fixture = TestBed.createComponent(Page500Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/views/pages/routes.ts
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '404',
+    loadComponent: () => import('./page404/page404.component').then(m => m.Page404Component),
+    data: {
+      title: 'Page 404'
+    }
+  },
+  {
+    path: '500',
+    loadComponent: () => import('./page500/page500.component').then(m => m.Page500Component),
+    data: {
+      title: 'Page 500'
+    }
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.component').then(m => m.LoginComponent),
+    data: {
+      title: 'Login Page'
+    }
+  },
+  {
+    path: 'register',
+    loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent),
+    data: {
+      title: 'Register Page'
+    }
+  }
+];
+
+Directory: ./app/views/pages/register
+File: ./app/views/pages/register/register.component.ts
+import { Component } from '@angular/core';
+import { IconDirective } from '@coreui/icons-angular';
+import { ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
+
+@Component({
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    standalone: true,
+    imports: [ContainerComponent, RowComponent, ColComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective]
+})
+export class RegisterComponent {
+
+  constructor() { }
+
+}
+
+File: ./app/views/pages/register/register.component.html
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form cForm>
+              <h1>Register</h1>
+              <p class="text-body-secondary">Create your account</p>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input autoComplete="name" cFormControl placeholder="Username" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>&#64;</span>
+                <input autoComplete="email" cFormControl placeholder="Email" />
+              </c-input-group>
+              <c-input-group class="mb-3">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input autoComplete="new-password" cFormControl placeholder="Password" type="password" />
+              </c-input-group>
+              <c-input-group class="mb-4">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input autoComplete="new-password" cFormControl placeholder="Repeat password" type="password" />
+              </c-input-group>
+              <div class="d-grid">
+                <button cButton color="success">Create Account</button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+File: ./app/views/pages/register/register.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angular';
+import { IconModule } from '@coreui/icons-angular';
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from '../../../icons/icon-subset';
+import { RegisterComponent } from './register.component';
+
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
+  let iconSetService: IconSetService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [CardModule, FormModule, GridModule, ButtonModule, IconModule, RegisterComponent],
+    providers: [IconSetService]
+})
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    iconSetService = TestBed.inject(IconSetService);
+    iconSetService.icons = { ...iconSubset };
+
+    fixture = TestBed.createComponent(RegisterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/views/pages/register/register.component.scss
+
+Directory: ./app/views/pages/login
+File: ./app/views/pages/login/login.component.ts
+import { Component } from '@angular/core';
+import { NgStyle } from '@angular/common';
+import { IconDirective } from '@coreui/icons-angular';
+import { ContainerComponent, RowComponent, ColComponent, CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, FormControlDirective, ButtonDirective } from '@coreui/angular';
+
+@Component({
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: true,
+    imports: [ContainerComponent, RowComponent, ColComponent, CardGroupComponent, TextColorDirective, CardComponent, CardBodyComponent, FormDirective, InputGroupComponent, InputGroupTextDirective, IconDirective, FormControlDirective, ButtonDirective, NgStyle]
+})
+export class LoginComponent {
+
+  constructor() { }
+
+}
+
+File: ./app/views/pages/login/login.component.html
+<div class="bg-light dark:bg-transparent min-vh-100 d-flex flex-row align-items-center">
+  <c-container breakpoint="md">
+    <c-row class="justify-content-center">
+      <c-col lg="10" xl="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm>
+                <h1>Login</h1>
+                <p class="text-body-secondary">Sign In to your account</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="username" cFormControl placeholder="Username" />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Password"
+                    type="password"
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary">
+                      Login
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <button cButton class="px-0" color="link">
+                      Forgot password?
+                    </button>
+                  </c-col>
+                </c-row>
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card [ngStyle]="{'minWidth.%': 44}" class="text-white bg-primary py-5">
+            <c-card-body class="text-center">
+              <div>
+                <h2>Sign up</h2>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua.
+                </p>
+                <button [active]="true" cButton class="mt-3" color="primary" routerLink="/register">
+                  Register Now!
+                </button>
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+File: ./app/views/pages/login/login.component.scss
+
+File: ./app/views/pages/login/login.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ButtonModule, CardModule, FormModule, GridModule } from '@coreui/angular';
+import { LoginComponent } from './login.component';
+import { IconModule } from '@coreui/icons-angular';
+import { IconSetService } from '@coreui/icons-angular';
+import { iconSubset } from '../../../icons/icon-subset';
+
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let iconSetService: IconSetService;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+    imports: [FormModule, CardModule, GridModule, ButtonModule, IconModule, LoginComponent],
+    providers: [IconSetService]
+})
+    .compileComponents();
+  });
+
+  beforeEach(() => {
+    iconSetService = TestBed.inject(IconSetService);
+    iconSetService.icons = { ...iconSubset };
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+Directory: ./app/views/contacts
+File: ./app/views/contacts/contacts.component.html
+<!-- <app-toast-container></app-toast-container> -->
+
+<c-card>
+    <c-card-header>
+      <!-- ABC -->
+      <h5><b>Contacte</b></h5>
+    </c-card-header>
+    <c-card-body>
+      <br />
+
+      <!-- <div class="container">
+        <h1>Data Display with CoreUI Smart Table</h1>
+        <c-smart-table [items]="data" [columns]="columns"></c-smart-table>
+      </div> -->
+
+        
+      <c-smart-table
+        #smartTable="cSmartTable"
+        activePage="1"
+        cleaner
+        clickableRows
+        [columnFilter]="true"
+        [columnSorter]="true"
+        [columns]="columns"
+        header
+        [itemsPerPageSelect]="true"
+        [itemsPerPage]="30"
+        [itemsPerPageOptions]="[5,10,20,30,50,100]"
+        [items]="data"
+        pagination
+        selectable
+        [sorterValue]="{ column: 'firstname', state: 'asc' }"
+        [tableBodyProps]="{ align: 'middle' }"
+        [tableFilter]="true"
+        [tableHeadProps]="{ color: 'dark' }"
+        [tableProps]="{ hover: true, striped: true, responsive: true }"
+        (rowClick)="onRowClick($event.item)"
+        [attr.data-instance-id]="'smart-table-1'" 
+      ></c-smart-table>
+      
+      <app-contact-edit-modal
+        *ngIf="selectedContact"
+        [contact]="selectedContact"
+        (closeModal)="closeEditModal($event)"
+        [attr.data-instance-id]="'contact-edit-modal-1'"
+      ></app-contact-edit-modal>
+
+    
+    </c-card-body>
+  </c-card>
+File: ./app/views/contacts/contacts.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { HomeComponent } from './contacts.component';
+
+describe('HomeComponent', () => {
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/views/contacts/routes.ts
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: '',
+    data: {
+      title: 'CONTACTS'
+    },
+    children: [
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full'
+      },
+      {
+        path: '',
+        loadComponent: () => import('./contacts.component').then(m => m.ContactsComponent),
+        data: {
+          title: 'Contacts'
+        }
+      }
+    ]
+  }
+];
+
+File: ./app/views/contacts/contactsAPI.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Contact } from '../../models/contact.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ContactsApiService {
+  private apiUrl = 'https://e7e60ef9f5f3.sn.mynetname.net:9443/contacts'; // Replace with your API URL
+
+  constructor(private http: HttpClient) { }
+
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
+
+  updateData(contact: Contact): Observable<Contact> {
+
+    // Type assertion to handle extra properties
+    const contactWithExtras = contact as any;
+    const { ___id, mine, ...cleanContact } = contactWithExtras;
+
+    // Log the cleaned payload
+    console.log('Payload to update contact:', cleanContact);
+
+  
+    return this.http.patch<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`, cleanContact);
+  }
+
+  deleteData(contact: Contact): Observable<Contact> {
+    return this.http.delete<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`);
+
+  }
+
+}
+File: ./app/views/contacts/contacts.component.ts
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ContactEditModalComponent } from './contact-edit-modal/contact-edit-modal.component';
+import { ContactsApiService } from './contactsAPI';
+import { Contact } from '../../models/contact.model';
+import {
+  ButtonCloseDirective,
+  ButtonDirective,
+  ModalBodyComponent,
+  ModalComponent,
+  ModalFooterComponent,
+  ModalHeaderComponent,
+  ModalTitleDirective,
+  CardBodyComponent,
+  CardComponent,
+  CardHeaderComponent,
+  CardTextDirective,
+  CardTitleDirective,
+  TabDirective,
+  TabPanelComponent,
+  TabsComponent,
+  TabsContentComponent,
+  TabsListComponent,
+  TextColorDirective
+} from '@coreui/angular'
+
+import { IItem,SmartTableComponent,TableColorDirective,TemplateIdDirective, ToasterComponent, ToasterPlacement } from '@coreui/angular-pro';
+import { ToastService } from '../../utils/toast.service';
+import { ToastOptions } from '../../utils/toast.interface';
+import { ToastContainerComponent } from '../../utils/toast-container.component';
+
+@Component({
+  selector: 'app-contacts',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ContactEditModalComponent,
+    ButtonDirective, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent,
+    SmartTableComponent, TableColorDirective, TemplateIdDirective,
+    CardBodyComponent,
+    CardComponent,
+    CardHeaderComponent,
+    CardTextDirective,
+    CardTitleDirective,
+    TabDirective,
+    TabPanelComponent,
+    TabsComponent,
+    TabsContentComponent,
+    TabsListComponent,
+    TextColorDirective,
+    ToasterComponent,
+    ToastContainerComponent
+   ],
+  templateUrl: './contacts.component.html',
+  styleUrls: ['./contacts.component.scss']
+})
+export class ContactsComponent implements OnInit {
+
+  placement = ToasterPlacement.TopCenter;
+
+  @ViewChild(ToastContainerComponent) toastContainer!: ToastContainerComponent;
+
+  data: Contact[] = [];
+  columns: any[] = [
+    // { key: 'contactid', label: 'contact id' },
+    { key: 'firstname', label: 'First Name' },
+    { key: 'lastname', label: 'Last Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'addr', label: 'Address' },
+    { key: 'createdat', label: 'Created At' }
+    // Define other columns as necessary
+  ];
+
+  selectedContact: Contact | null = null;
+
+  constructor(private contactsService: ContactsApiService, private toastService: ToastService) {}
+
+  ngOnInit() {
+    this.fetchData();
+    // this.showToast();
+    
+  }
+  
+  fetchData() {
+    this.contactsService.getData().subscribe({
+      next: (contacts) => this.data = contacts,
+    });
+  }
+
+  onRowClick(contact: Contact) {
+    this.openEditModal(contact);
+  }
+
+  openEditModal(contact: Contact) {
+    this.selectedContact = { ...contact };
+  }
+
+  closeEditModal(updatedContact: Contact | null) {
+    if (updatedContact) {
+      const index = this.data.findIndex(c => c.contactid === updatedContact.contactid);
+      if (index !== -1) {
+        this.data[index] = updatedContact;
+      } else {
+        this.data.push(updatedContact);
+      }
+    }
+    this.selectedContact = null;
+    this.fetchData(); // Refresh the table data
+    this.showToast();
+  }
+
+  showToast() {
+    const options: ToastOptions = {
+      title: 'Sample Toast',
+      message: 'This is a toast in CONTACTS',
+      color: 'info',
+      autohide: true,
+      delay: 90000,
+      placement: ToasterPlacement.MiddleCenter
+    };
+    this.toastService.showToast(options);
+  }
+
+}
+
+Directory: ./app/views/contacts/contact-edit-modal
+File: ./app/views/contacts/contact-edit-modal/contact-edit-modal.component.spec.ts
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ContactEditModalComponent } from './contact-edit-modal.component';
+
+describe('ContactEditModalComponent', () => {
+  let component: ContactEditModalComponent;
+  let fixture: ComponentFixture<ContactEditModalComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ContactEditModalComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ContactEditModalComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+File: ./app/views/contacts/contact-edit-modal/contact-edit-modal.component.scss
+
+File: ./app/views/contacts/contact-edit-modal/contact-edit-modal.component.html
+
+<!-- <c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static" [fullscreen]="true"> -->
+<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static">
+  <c-modal-header>
+    <h5 class="modal-title">Edit Contact</h5>
+    <button type="button" class="btn-close" (click)="onClose()"></button>
+  </c-modal-header>
+  <c-modal-body>
+    <div *ngIf="contact">
+      <form>
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <input type="text" class="form-control" id="firstName" [(ngModel)]="contact.firstname" name="firstName">
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <input type="text" class="form-control" id="lastName" [(ngModel)]="contact.lastname" name="lastName">
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="contact.email" name="email">
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="text" class="form-control" id="phone" [(ngModel)]="contact.phone" name="phone">
+        </div>
+        <div class="mb-3">
+          <label for="addr" class="form-label">Address</label>
+          <input type="text" class="form-control" id="addr" [(ngModel)]="contact.addr" name="addr">
+        </div>
+      </form>
+    </div>
+  </c-modal-body>
+  <c-modal-footer>
+    <!-- <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button> -->
+    <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+    <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+
+    
+  </c-modal-footer>
+</c-modal>
+
+
+File: ./app/views/contacts/contact-edit-modal/contact-edit-modal.component.ts
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { CommonModule, NgTemplateOutlet } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import {
+  ButtonDirective,
+  ButtonCloseDirective,
+  ModalBodyComponent,
+  ModalComponent,
+  ModalFooterComponent,
+  ModalHeaderComponent,
+  ModalTitleDirective,
+  ThemeDirective
+} from '@coreui/angular';
+import { Contact } from '../../../models/contact.model';
+import { ContactsApiService } from '../contactsAPI';
+
+
+@Component({
+  selector: 'app-contact-edit-modal',
+  standalone: true,
+  imports: [CommonModule, FormsModule,
+    ButtonDirective, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ThemeDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent,    
+  ],
+  templateUrl: './contact-edit-modal.component.html',
+  styleUrls: ['./contact-edit-modal.component.scss'],
+  host: {'some-binding': 'some-value'},
+})
+export class ContactEditModalComponent implements OnChanges {
+  @Input() contact: Contact | null | undefined;
+  @Output() closeModal = new EventEmitter<Contact | null>();
+
+
+  isVisible = false;
+  isVisibleModal = true;
+
+  showToast = false;
+  toastTitle = '';
+  toastMessage = '';
+  toastClass = '';
+
+  constructor(private contactsService: ContactsApiService) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['contact']) {
+      if (this.contact) {
+        this.isVisible = true;
+      }
+    };
+  }
+
+  onVisibleChange(isVisible: boolean) {
+    this.isVisible = isVisible;
+  }
+
+  save() {
+    if (this.contact) {
+      this.contactsService.updateData(this.contact).subscribe({
+        next: (updatedContact) => {
+          console.log('Contact updated successfully:', updatedContact);
+          this.closeModal.emit(updatedContact);
+        },
+        error: (err) => {
+          console.error('Error updating contact:', err);
+
+        }
+      });
+    }
+  }
+
+  onClose() {
+    this.isVisible = false;
+    this.closeModal.emit(null);
+  }
+
+  delete() {
+    if (this.contact) {
+      this.contactsService.deleteData(this.contact).subscribe({
+        next: (updatedContact) => {
+          console.log('Contact deleted successfully:', updatedContact);
+          this.closeModal.emit(updatedContact);
+
+        },
+        error: (err) => {
+          console.error('Error updating contact:', err);
+        }
+      });
+    }
+  }
+}
+
+File: ./app/views/contacts/contacts.component.scss
+
+File: ./app/app.config.ts
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { ApplicationConfig, importProvidersFrom, provideExperimentalZonelessChangeDetection, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withEnabledBlockingInitialNavigation, withHashLocation, withInMemoryScrolling, withRouterConfig, withViewTransitions } from '@angular/router';
+
+import { routes } from './app.routes';
+import { AutoLoginPartialRoutesGuard, LogLevel, OidcSecurityService, PublicEventsService, authInterceptor, provideAuth } from 'angular-auth-oidc-client';
+
+// import { AuthInterceptor } from 'angular-auth-oidc-client';
+import { AuthInterceptor } from './auth.interceptor';
+
+
+import { DropdownModule, SidebarModule, ToastComponent } from '@coreui/angular';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { IconSetService } from '@coreui/icons-angular';
+import { ToastContainerComponent } from './utils/toast-container.component';
+
+
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    // provideRouter(routes),
+    provideHttpClient(withInterceptors([authInterceptor()])),
+    provideAuth({
+      config: {
+        // triggerAuthorizationResultEvent: true,
+        // triggerAuthorizationResultEvent: false,
+        postLoginRoute: '/',
+        postLogoutRedirectUri: window.location.origin,
+         forbiddenRoute: '/forbidden',
+        unauthorizedRoute: '/unauthorized',
+        // unauthorizedRoute: '/',
+        logLevel: LogLevel.Debug,
+        // historyCleanupOff: true,
+        historyCleanupOff: false,
+        authority: 'https://e7e60ef9f5f3.sn.mynetname.net:8443/realms/apisix',
+        // redirectUrl: window.location.origin,
+        redirectUrl: `${window.location.origin}/#/callback`,
+        clientId: 'feclient',
+        // scope: 'openid profile email offline_access',
+        scope: 'openid profile email',
+        responseType: 'code',
+        silentRenew: true,
+        useRefreshToken: true,
+        tokenRefreshInSeconds: 5,
+        silentRenewUrl: `${window.location.origin}/silent-renew.html`,
+        autoUserInfo: true,
+        ignoreNonceAfterRefresh: true,
+        secureRoutes: ['https://e7e60ef9f5f3.sn.mynetname.net:9443'],
+        triggerRefreshWhenIdTokenExpired: true,
+        // disableIdTokenValidation: true,
+        maxIdTokenIatOffsetAllowedInSeconds: 20,
+        renewTimeBeforeTokenExpiresInSeconds: 1,
+      },
+    }),
+    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    },
+    OidcSecurityService,
+    AutoLoginPartialRoutesGuard,
+    PublicEventsService,
+    importProvidersFrom(SidebarModule, DropdownModule),
+    IconSetService,
+    provideAnimations(),
+    provideRouter(routes,
+      withRouterConfig({
+        onSameUrlNavigation: 'reload'
+      }),
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled'
+      }),
+      withEnabledBlockingInitialNavigation(),
+      withViewTransitions(),
+      withHashLocation()
+    ),
+    ToastContainerComponent,
+    ToastComponent
+  ],
+};
+
+Directory: ./app/utils-old
+File: ./app/utils-old/app-toast.component.ts
+import { ChangeDetectorRef, Component, ElementRef, forwardRef, Input, Renderer2 } from '@angular/core';
+import {
+  ToastComponent,
+  ToasterService,
+  ToasterComponent,
+  ToastBodyComponent,
+  ToastHeaderComponent,
+  ProgressComponent, ProgressBarComponent
+} from '@coreui/angular';
+
+@Component({
+  selector: 'app-toast',
+  templateUrl: './toast.component.html',
+//   styleUrls: ['./toast.component.scss'],
+  providers: [{ provide: ToastComponent, useExisting: forwardRef(() => AppToastComponent) }],
+  standalone: true,
+  imports: [ToastComponent, ToastBodyComponent, ToastHeaderComponent, ProgressComponent, ProgressBarComponent]
+})
+export class AppToastComponent extends ToastComponent {
+
+  @Input() closeButton = true;
+  @Input() title = '';
+  @Input() message = '';
+  @Input() override color = 'info';
+  @Input() override autohide = true;
+  @Input() override delay = 5000;
+  progressValue = 0;
+
+  constructor(
+    public override hostElement: ElementRef,
+    public override renderer: Renderer2,
+    public override toasterService: ToasterService,
+    public override changeDetectorRef: ChangeDetectorRef
+  ) {
+    super(hostElement, renderer, toasterService, changeDetectorRef);
+  }
+
+  override ngOnInit() {
+    if (this.autohide) {
+      this.startProgress();
+    }
+  }
+
+  startProgress() {
+    const interval = 100;
+    const step = interval / this.delay * 100;
+    const timer = setInterval(() => {
+      this.progressValue += step;
+      if (this.progressValue >= 100) {
+        clearInterval(timer);
+      }
+      this.changeDetectorRef.markForCheck();
+    }, interval);
+  }
+
+  onToastHidden() {
+    // Implement any additional cleanup if necessary
+  }
+}
+
+File: ./app/utils-old/toast.interface.ts
+export interface Toast {
+    title: string;
+    message: string;
+    delay: number;
+    color: string;
+    autohide: boolean;
+  }
+  
+File: ./app/utils-old/toast-container.component.ts
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AppToastComponent } from './app-toast.component';
+import { ToastService } from './toast.service';
+
+@Component({
+    selector: 'app-toast-container',
+    templateUrl: './toast-container.component.html',
+    //   styleUrls: ['./toast-container.component.scss'],
+    standalone: true,
+    imports: [AppToastComponent, CommonModule], // Include AppToastComponent here if standalone
+})
+export class ToastContainerComponent {
+    toasts: any[] = [];
+
+    constructor(private toastService: ToastService) { }
+
+    ngOnInit() {
+        this.toastService.toastState.subscribe((toasts: any[]) => {
+            this.toasts = toasts;
+        });
+    }
+
+    removeToast(toast: any) {
+        this.toastService.removeToast(toast);
+    }
+}
+
+File: ./app/utils-old/toast.service.ts
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Toast } from './toast.interface';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ToastService {
+  private _toastState = new BehaviorSubject<Toast[]>([]);
+  toastState = this._toastState.asObservable();
+
+  addToast(toast: Toast) {
+    this._toastState.next([...this._toastState.value, toast]);
+  }
+
+  removeToast(toast: Toast) {
+    this._toastState.next(this._toastState.value.filter(t => t !== toast));
+  }
+}
+
+File: ./app/utils-old/toast.component.html
+<!-- This template utilizes CoreUI's c-toast component -->
+<c-toast 
+  [color]="color" 
+  [delay]="delay" 
+  [autohide]="autohide" 
+  (hidden)="onToastHidden()"
+  class="align-items-center">
+  <c-toast-header [closeButton]="closeButton">
+    <strong class="me-auto">{{ title }}</strong>
+  </c-toast-header>
+  <c-toast-body>
+    <p class="mb-1">{{ message }}</p>
+    <ng-content></ng-content>
+    <c-progress thin>
+      <c-progress-bar [value]="progressValue"></c-progress-bar>
+    </c-progress>
+  </c-toast-body>
+</c-toast>
+
+File: ./app/utils-old/toast-container.component.html
+<!-- Toast container displaying toasts dynamically -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <app-toast
+      *ngFor="let toast of toasts"
+      [title]="toast.title"
+      [message]="toast.message"
+      [color]="toast.color"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay"
+      (hidden)="removeToast(toast)">
+    </app-toast>
+  </div>
+  
+File: ./index.html
+<!DOCTYPE html>
+<!--
+* imoDEX
+* @version v0.0.1
+* @link https://imodex.ro/
+* Copyright (c) 2024 Vlad Petrescu
+
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <base href="./">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" />
+  <meta content="imodex CRM" name="description" />
+  <meta content="Vlad Petrescu" name="author" />
+  <meta
+    content="imodex,crm,imobiliare"
+    name="keyword"
+  />
+  <link href="assets/favicon.ico" rel="icon" type="image/x-icon">
+  <title>imoDEX CRM</title>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<app-root>
+  <div class="fade show" style="text-align: center; padding-top: calc(100vh / 2); height: 100vh">
+    <i class="spinner-grow spinner-grow-sm"></i>
+    <span class="m-1">Loading...</span>
+  </div>
+</app-root>
+</body>
+</html>
+
+File: ./main.ts
+/// <reference types="@angular/localize" />
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+File: ./output.txt
+
+File: ./styles.css
+/* You can add global styles to this file, and also import other style files */
+/* @import '~@coreui/coreui/dist/css/coreui.min.css'; */

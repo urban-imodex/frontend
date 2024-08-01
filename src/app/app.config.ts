@@ -9,9 +9,10 @@ import { AutoLoginPartialRoutesGuard, LogLevel, OidcSecurityService, PublicEvent
 import { AuthInterceptor } from './auth.interceptor';
 
 
-import { DropdownModule, SidebarModule } from '@coreui/angular';
+import { DropdownModule, SidebarModule, ToastComponent } from '@coreui/angular';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { IconSetService } from '@coreui/icons-angular';
+
 
 
 export const appConfig: ApplicationConfig = {
@@ -75,5 +76,6 @@ export const appConfig: ApplicationConfig = {
       withViewTransitions(),
       withHashLocation()
     ),
+    ToastComponent
   ],
 };

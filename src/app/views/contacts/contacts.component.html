@@ -1,3 +1,5 @@
+<!-- <app-toast-container></app-toast-container> -->
+
 <c-card>
     <c-card-header>
       <!-- ABC -->
@@ -22,28 +24,27 @@
         [columns]="columns"
         header
         [itemsPerPageSelect]="true"
-        [itemsPerPage]="5"
+        [itemsPerPage]="30"
+        [itemsPerPageOptions]="[5,10,20,30,50,100]"
         [items]="data"
         pagination
         selectable
-        [sorterValue]="{ column: 'contactid', state: 'asc' }"
+        [sorterValue]="{ column: 'firstname', state: 'asc' }"
         [tableBodyProps]="{ align: 'middle' }"
         [tableFilter]="true"
         [tableHeadProps]="{ color: 'dark' }"
         [tableProps]="{ hover: true, striped: true, responsive: true }"
         (rowClick)="onRowClick($event.item)"
+        [attr.data-instance-id]="'smart-table-1'" 
       ></c-smart-table>
       
       <app-contact-edit-modal
         *ngIf="selectedContact"
         [contact]="selectedContact"
         (closeModal)="closeEditModal($event)"
+        [attr.data-instance-id]="'contact-edit-modal-1'"
       ></app-contact-edit-modal>
-      
-  
 
-
-
-
+    
     </c-card-body>
   </c-card>

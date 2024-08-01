@@ -26,5 +26,11 @@
        -->
        <button (click)="callApi()">Call API</button>
        <pre>{{ response | json }}</pre>
+       <button (click)="showNotification()">Show Toast</button>
+       <button (click)="showNotification2()">Show Toast</button>
+
+       <button (click)="showSuccess()">Show Success Toast</button>
+       <button (click)="showFailure()">Show Failure Toast</button>
+
     </c-card-body>
   </c-card>

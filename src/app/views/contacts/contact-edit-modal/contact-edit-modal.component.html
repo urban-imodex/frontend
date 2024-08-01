@@ -1,4 +1,6 @@
-<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)">
+
+<!-- <c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static" [fullscreen]="true"> -->
+<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static">
   <c-modal-header>
     <h5 class="modal-title">Edit Contact</h5>
     <button type="button" class="btn-close" (click)="onClose()"></button>
@@ -30,7 +32,11 @@
     </div>
   </c-modal-body>
   <c-modal-footer>
-    <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button>
+    <!-- <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button> -->
     <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
+    <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+
+    
   </c-modal-footer>
 </c-modal>
+

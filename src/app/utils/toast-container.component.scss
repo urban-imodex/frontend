@@ -1,0 +1,11 @@
+.toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1050;
+    padding: 1rem;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; // Adds a 1rem gap between each toast
+  }

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { OidcSecurityService } from 'angular-auth-oidc-client';
 import { HttpClientModule } from '@angular/common/http';
@@ -9,6 +9,9 @@ import { Title } from '@angular/platform-browser';
 import { IconSetService } from '@coreui/icons-angular';
 import { iconSubset } from './icons/icon-subset';
 
+import { ToastContainerComponent } from './utils/toast-container.component';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,12 +19,17 @@ import { iconSubset } from './icons/icon-subset';
   // styleUrls: ['./app.component.css'],
   standalone: true,
   imports: [
-      RouterOutlet,
-  ]
+    RouterOutlet,
+    CommonModule,
+    ToastContainerComponent
+]
 })
 
 export class AppComponent implements OnInit {
   private readonly oidcSecurityService = inject(OidcSecurityService);
+  // @ViewChild('toaster') toaster!: AppToastComponent;
+
+
 
   title = 'imoDEX';
   isAuthenticated = false;
@@ -30,7 +38,9 @@ export class AppComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private iconSetService: IconSetService,
+    private cdr: ChangeDetectorRef,
   ) {
+
     console.log('appComponent loaded');
     this.titleService.setTitle(this.title);
     // iconSet singleton
@@ -46,11 +56,12 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
     this.router.events.subscribe((evt: any) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
-      }
+      };
     });
     
     this.oidcSecurityService

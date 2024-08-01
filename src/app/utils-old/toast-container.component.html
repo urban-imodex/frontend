@@ -1,0 +1,13 @@
+<!-- Toast container displaying toasts dynamically -->
+<div class="toast-container position-fixed top-0 end-0 p-3">
+    <app-toast
+      *ngFor="let toast of toasts"
+      [title]="toast.title"
+      [message]="toast.message"
+      [color]="toast.color"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay"
+      (hidden)="removeToast(toast)">
+    </app-toast>
+  </div>
+  

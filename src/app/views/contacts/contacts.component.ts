@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ContactEditModalComponent } from './contact-edit-modal/contact-edit-modal.component';
@@ -25,15 +25,15 @@ import {
   TextColorDirective
 } from '@coreui/angular'
 
+import { IItem,SmartTableComponent,TableColorDirective,TemplateIdDirective, ToasterComponent, ToasterPlacement } from '@coreui/angular-pro';
 
-import { IItem,SmartTableComponent,TableColorDirective,TemplateIdDirective } from '@coreui/angular-pro';
 
 @Component({
   selector: 'app-contacts',
   standalone: true,
   imports: [CommonModule, FormsModule, ContactEditModalComponent,
     ButtonDirective, ModalComponent, ModalHeaderComponent, ModalTitleDirective, ButtonCloseDirective, ModalBodyComponent, ModalFooterComponent,
-    SmartTableComponent,TableColorDirective,TemplateIdDirective,
+    SmartTableComponent, TableColorDirective, TemplateIdDirective,
     CardBodyComponent,
     CardComponent,
     CardHeaderComponent,
@@ -45,11 +45,12 @@ import { IItem,SmartTableComponent,TableColorDirective,TemplateIdDirective } fro
     TabsContentComponent,
     TabsListComponent,
     TextColorDirective
-  ],
+   ],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss']
 })
-export class ContactsComponent {
+export class ContactsComponent implements OnInit {
+
   data: Contact[] = [];
   columns: any[] = [
     // { key: 'contactid', label: 'contact id' },
@@ -67,8 +68,14 @@ export class ContactsComponent {
   constructor(private contactsService: ContactsApiService) {}
 
   ngOnInit() {
-    this.contactsService.getData().subscribe(contacts => {
-      this.data = contacts;
+    this.fetchData();
+    // this.showToast();
+    
+  }
+  
+  fetchData() {
+    this.contactsService.getData().subscribe({
+      next: (contacts) => this.data = contacts,
     });
   }
 
@@ -85,8 +92,13 @@ export class ContactsComponent {
       const index = this.data.findIndex(c => c.contactid === updatedContact.contactid);
       if (index !== -1) {
         this.data[index] = updatedContact;
+      } else {
+        this.data.push(updatedContact);
       }
     }
     this.selectedContact = null;
+    this.fetchData(); // Refresh the table data
   }
+
+
 }

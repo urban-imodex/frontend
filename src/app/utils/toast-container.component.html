@@ -1,0 +1,36 @@
+<div class="toast-container">
+    <app-toast
+      *ngFor="let toast of toasts"
+      [title]="toast.title"
+      [message]="toast.message"
+      [color]="toast.color"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay">
+    </app-toast>
+  </div>
+  
+
+
+<!-- 
+   <div class="toast-container position-fixed" [ngClass]="getPlacementClass(toast.placement)" *ngFor="let toast of toasts">
+  <app-toast
+    [title]="toast.title"
+    [message]="toast.message"
+    [color]="toast.color"
+    [autohide]="toast.autohide"
+    [delay]="toast.delay">
+  </app-toast>
+</div> -->
+
+<!-- <c-toaster [placement]="toasts[0]?.placement || 'top-end'" position="absolute">
+    <app-toast
+      *ngFor="let toast of toasts"
+      [title]="toast.title"
+      [message]="toast.message"
+      [color]="toast.color"
+      [autohide]="toast.autohide"
+      [delay]="toast.delay"
+      (close)="removeToast(toast)">
+    </app-toast>
+  </c-toaster>
+   -->
