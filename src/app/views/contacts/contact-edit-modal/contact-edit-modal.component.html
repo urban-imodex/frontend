@@ -1,6 +1,4 @@
-
-<!-- <c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static" [fullscreen]="true"> -->
-<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" #staticBackdropModal backdrop="static">
+<c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" backdrop="static">
   <c-modal-header>
     <h5 class="modal-title">Edit Contact</h5>
     <button type="button" class="btn-close" (click)="onClose()"></button>
@@ -18,25 +16,54 @@
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="contact.email" name="email">
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            [(ngModel)]="contact.email" 
+            name="email"
+            [ngClass]="{'is-invalid': emailError}"
+            (ngModelChange)="emailError = ''"
+          >
+          <div *ngIf="emailError" class="invalid-feedback">
+            {{ emailError }}
+          </div>
         </div>
         <div class="mb-3">
           <label for="phone" class="form-label">Phone</label>
-          <input type="text" class="form-control" id="phone" [(ngModel)]="contact.phone" name="phone">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="phone" 
+            [(ngModel)]="contact.phone" 
+            name="phone"
+            [ngClass]="{'is-invalid': phoneError}"
+            (ngModelChange)="phoneError = ''"
+          >
+          <div *ngIf="phoneError" class="invalid-feedback">
+            {{ phoneError }}
+          </div>
         </div>
         <div class="mb-3">
           <label for="addr" class="form-label">Address</label>
-          <input type="text" class="form-control" id="addr" [(ngModel)]="contact.addr" name="addr">
+          <input 
+            type="text" 
+            class="form-control" 
+            id="addr" 
+            [(ngModel)]="contact.addr" 
+            name="addr"
+            [ngClass]="{'is-invalid': addrError}"
+            (ngModelChange)="addrError = ''"
+          >
+          <div *ngIf="addrError" class="invalid-feedback">
+            {{ addrError }}
+          </div>
         </div>
       </form>
     </div>
   </c-modal-body>
   <c-modal-footer>
-    <!-- <button type="button" class="btn btn-secondary" (click)="onClose()">Close</button> -->
-    <button type="button" class="btn btn-primary" (click)="save()">Save changes</button>
-    <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
-
-    
+    <button type="button" class="btn btn-primary" (click)="save()">{{ isNew ? 'Add' : 'Save' }}</button>
+    <button *ngIf="!isNew" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
   </c-modal-footer>
 </c-modal>
-

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Contact } from '../../models/contact.model';
+import { ToastService } from '../../utils/toast.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,18 @@ import { Contact } from '../../models/contact.model';
 export class ContactsApiService {
   private apiUrl = 'https://e7e60ef9f5f3.sn.mynetname.net:9443/contacts'; // Replace with your API URL
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private toastService: ToastService) { }
 
   getData(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
+  }
+
+  createData(contact: Contact): Observable<Contact> {
+    const contactWithExtras = contact as any;
+    const { contactid, mine, userID, ...cleanContact } = contactWithExtras;
+
+    console.log('Payload to ADD contact:', cleanContact);
+    return this.http.post<Contact>(this.apiUrl, cleanContact);
   }
 
   updateData(contact: Contact): Observable<Contact> {
@@ -23,8 +32,6 @@ export class ContactsApiService {
 
     // Log the cleaned payload
     console.log('Payload to update contact:', cleanContact);
-
-  
     return this.http.patch<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`, cleanContact);
   }
 
@@ -32,5 +39,7 @@ export class ContactsApiService {
     return this.http.delete<Contact>(`${this.apiUrl}?contactid=eq.${contact.contactid}`);
 
   }
+
+
 
 }
