@@ -1,4 +1,3 @@
-<!-- contacts.component.html -->
 <c-card>
   <c-card-header>
     <h5><b>Contacte</b></h5>
@@ -6,28 +5,33 @@
   <c-card-body>
     <br />
     <c-smart-table
-      #smartTable="cSmartTable"
-      activePage="1"
-      cleaner
-      clickableRows
-      [columnFilter]="true"
-      [columnSorter]="true"
-      [columns]="columns"
-      header
-      [itemsPerPageSelect]="true"
-      [itemsPerPage]="30"
-      [itemsPerPageOptions]="[5, 10, 20, 30, 50, 100]"
-      [items]="data"
-      pagination
-      selectable
-      [sorterValue]="{ column: 'firstname', state: 'asc' }"
-      [tableBodyProps]="{ align: 'middle' }"
-      [tableFilter]="true"
-      [tableHeadProps]="{ color: 'dark' }"
-      [tableProps]="{ hover: true, striped: true, responsive: true }"
-      (rowClick)="onRowClick($event.item)"
-      [attr.data-instance-id]="'smart-table-1'"
-    ></c-smart-table>
+    #smartTable="cSmartTable"
+    activePage="1"
+    cleaner
+    clickableRows
+    [columnFilter]="true"
+    [columnSorter]="true"
+    [columns]="columns"
+    header
+    [itemsPerPageSelect]="true"
+    [itemsPerPage]="30"
+    [itemsPerPageOptions]="[5, 10, 20, 30, 50, 100]"
+    [items]="data"
+    pagination
+    selectable
+    (selectedItemsChange)="onSelectedItemsChange($event)"
+    [sorterValue]="{ column: 'firstname', state: 'asc' }"
+    [tableBodyProps]="{ align: 'middle' }"
+    [tableFilter]="true"
+    [tableHeadProps]="{ color: 'dark' }"
+    [tableProps]="{ hover: true, striped: true, responsive: true }"
+    (rowClick)="onRowClick($event.item, $event)"
+    [attr.data-instance-id]="'smart-table-1'"
+    [selectAll]="false"
+  ></c-smart-table>
+  
+  
+  
 
     <app-contact-edit-modal
       *ngIf="selectedContact"
@@ -39,5 +43,14 @@
   </c-card-body>
 </c-card>
 
-<!-- Floating Action Button -->
-<button class="fab" (click)="openNewContactModal()">+</button>
+<!-- Floating Action Buttons -->
+<div class="fab-container">
+  <button class="fab" (click)="openNewContactModal()" aria-label="Add New Contact"><span>+</span></button>
+  <button
+    *ngIf="hasSelectedItems()"
+    class="fab-action"
+    (click)="performActionOnSelected()"
+    aria-label="Perform Action on Selected">
+    <span>✔</span>
+  </button>
+</div>

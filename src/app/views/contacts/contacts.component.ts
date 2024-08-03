@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild, ChangeDetectorRef, signal } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ContactEditModalComponent } from './contact-edit-modal/contact-edit-modal.component';
@@ -24,8 +24,7 @@ import {
   TabsListComponent,
   TextColorDirective
 } from '@coreui/angular';
-import { IItem, SmartTableComponent, TableColorDirective, TemplateIdDirective, ToasterComponent, ToasterPlacement } from '@coreui/angular-pro';
-import { Observable } from 'rxjs';
+import { IItem, SmartTableComponent, TableColorDirective, TemplateIdDirective } from '@coreui/angular-pro';
 
 @Component({
   selector: 'app-contacts',
@@ -61,7 +60,6 @@ import { Observable } from 'rxjs';
 })
 export class ContactsComponent implements OnInit {
   data: Contact[] = [];
-  // data$!: Observable<Contact[] | unknown> | undefined;
   columns: any[] = [
     { key: 'firstname', label: 'First Name' },
     { key: 'lastname', label: 'Last Name' },
@@ -73,9 +71,8 @@ export class ContactsComponent implements OnInit {
 
   selectedContact: Contact | null = null;
   isNewContact: boolean = false;
-  // selectedItemsCount: any;
   readonly selectedItemsCount = signal(0);
-
+  selectedItems: Contact[] = [];
 
   constructor(private contactsService: ContactsApiService, private cdr: ChangeDetectorRef) {}
 
@@ -92,10 +89,86 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  onRowClick(contact: Contact) {
+  // onRowClick(contact: Contact, event: Event) {
+  //   const targetElement = event.target as HTMLElement;
+  //   console.log("onRowClick START");
+
+  //   if (this.isCheckboxClick(targetElement)) {
+  //     console.log("onROwClick checking for checkbox click", targetElement);
+  //     // Checkbox click, do nothing
+  //     return;
+  //   }
+  //   console.log("onRowClick END!");
+  //   this.openEditModal(contact);
+  // }
+
+  
+
+  // isCheckboxClick(element: HTMLElement | null): boolean {
+  //   return element?.closest('input[type="checkbox"]') !== null;
+  // }
+
+  onRowClick(contact: Contact, event: { event: Event }) {
+    console.log("onRowClick START");
+  
+    // Log the event object to inspect its structure
+    console.log("Event:", event);
+  
+    // Extract the nested event
+    const nestedEvent = event.event as MouseEvent;
+    console.log("Nested Event:", nestedEvent);
+  
+    // Access target element from the nested event
+    const targetElement = nestedEvent.target as HTMLElement;
+    console.log("Event target:", targetElement);
+  
+    if (!targetElement) {
+      console.log("Event target is null or undefined");
+      return;
+    }
+  
+    console.log("Event target tag:", targetElement.tagName);
+  
+    // Check if the click is on a checkbox
+    if (this.isCheckboxClick(targetElement)) {
+      console.log("onRowClick: Clicked on a checkbox or within a checkbox container");
+      return;
+    }
+  
+    console.log("onRowClick END!");
     this.openEditModal(contact);
   }
+  
+  isCheckboxClick(element: HTMLElement | null): boolean {
+    if (!element) return false;
+  
+    // Check if the element or any of its ancestors are a checkbox input
+    let currentElement: HTMLElement | null = element;
+    while (currentElement) {
+      console.log("Checking element:", currentElement);
+      if (currentElement.tagName === 'INPUT' && currentElement.getAttribute('type') === 'checkbox') {
+        return true;
+      }
+      // Check if the parent element is a label containing a checkbox
+      if (currentElement.tagName === 'LABEL' && currentElement.querySelector('input[type="checkbox"]')) {
+        return true;
+      }
+      currentElement = currentElement.parentElement; // Move up the DOM tree
+    }
+  
+    return false;
+  }
+  
+  
+  
 
+  
+
+  onSelectedItemsChange(selectedItems: IItem[]) {
+    this.selectedItems = selectedItems as Contact[];
+    this.selectedItemsCount.set(selectedItems.length ?? 0);
+    console.log('Selected items changed(', this.selectedItems.length ,'):', this.selectedItems); // Debugging line
+  }
 
   openEditModal(contact: Contact) {
     this.isNewContact = false;
@@ -156,7 +229,16 @@ export class ContactsComponent implements OnInit {
     this.cdr.detectChanges(); // Manually trigger change detection
   }
 
-  // onSelectedItemsChange(selectedItems: IItem[]) {
-  //   this.selectedItemsCount.set(selectedItems.length ?? 0);
-  // }
+  performActionOnSelected() {
+    if (this.selectedItems.length > 0) {
+      console.log('Performing action on selected items:', this.selectedItems);
+      // Implement your action logic here, e.g., bulk update, delete, etc.
+    } else {
+      console.log('No items selected.');
+    }
+  }
+
+  hasSelectedItems(): boolean {
+    return this.selectedItems.length > 0;
+  }
 }
