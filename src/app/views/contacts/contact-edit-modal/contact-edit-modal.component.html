@@ -1,11 +1,11 @@
 <c-modal [(visible)]="isVisible" (visibleChange)="onVisibleChange($event)" backdrop="static">
   <c-modal-header>
-    <h5 class="modal-title">Edit Contact</h5>
+    <h5 class="modal-title">Contact Details</h5>
     <button type="button" class="btn-close" (click)="onClose()"></button>
   </c-modal-header>
   <c-modal-body>
     <div *ngIf="contact">
-      <form>
+      <form *ngIf="isEditMode || isNew; else viewModeForm">
         <div class="mb-3">
           <label for="firstName" class="form-label">First Name</label>
           <input type="text" class="form-control" id="firstName" [(ngModel)]="contact.firstname" name="firstName">
@@ -60,10 +60,42 @@
           </div>
         </div>
       </form>
+      <ng-template #viewModeForm>
+        <div class="mb-3">
+          <label for="firstName" class="form-label">First Name</label>
+          <p id="firstName">{{ contact.firstname }}</p>
+        </div>
+        <div class="mb-3">
+          <label for="lastName" class="form-label">Last Name</label>
+          <p id="lastName">{{ contact.lastname }}</p>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <p id="email">{{ contact.email }}</p>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">Phone</label>
+          <p id="phone">{{ contact.phone }}</p>
+        </div>
+        <div class="mb-3">
+          <label for="addr" class="form-label">Address</label>
+          <p id="addr">{{ contact.addr }}</p>
+        </div>
+      </ng-template>
     </div>
   </c-modal-body>
-  <c-modal-footer>
-    <button type="button" class="btn btn-primary" (click)="save()">{{ isNew ? 'Add' : 'Save' }}</button>
-    <button *ngIf="!isNew" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
+  <c-modal-footer *ngIf="isEditMode || isNew">
+    <button *ngIf="isEditMode || isNew" type="button" class="btn btn-primary" (click)="save()">{{ isNew ? 'Add' : 'Save' }}</button>
+    <button *ngIf="!isNew && isEditMode" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
   </c-modal-footer>
+  <!-- Quick Edit Button -->
+  <button *ngIf="!isEditMode && !isNew" class="fab-edit quick-edit btn btn-primary" (click)="toggleEditMode()">
+    <i class="fas fa-pencil-alt"></i>
+    <svg cIcon name="cilPencil" size="xl" title="Quick Edit Icon"></svg>
+  </button>
+<!-- Detail Edit Button -->
+<button *ngIf="!isEditMode && !isNew" class="fab-edit detail-edit btn btn-secondary" (click)="navigateToDetail()">
+  <i class="fas fa-pencil-alt"></i>
+  <svg cIcon name="cilPencil" size="xl" title="Detail Edit Icon"></svg>
+</button>
 </c-modal>

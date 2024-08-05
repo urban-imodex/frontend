@@ -40,6 +40,12 @@ export class ContactsApiService {
 
   }
 
+  getContact(contactid: string): Observable<Contact> {
+    return this.http.get<Contact>(`${this.apiUrl}?contactid=eq.${contactid}`);
+
+    // https://e7e60ef9f5f3.sn.mynetname.net:9443/contacts?contactid=eq.0277249b-8c69-4bb1-84de-aaa4cca3290f
+  }
+
 
 
 }

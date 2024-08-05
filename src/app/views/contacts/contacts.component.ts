@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ContactEditModalComponent } from './contact-edit-modal/contact-edit-modal.component';
@@ -53,7 +54,7 @@ import { IItem, SmartTableComponent, TableColorDirective, TemplateIdDirective } 
     TabsComponent,
     TabsContentComponent,
     TabsListComponent,
-    TextColorDirective
+    TextColorDirective,
   ],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss']
@@ -73,8 +74,9 @@ export class ContactsComponent implements OnInit {
   isNewContact: boolean = false;
   readonly selectedItemsCount = signal(0);
   selectedItems: Contact[] = [];
+  
 
-  constructor(private contactsService: ContactsApiService, private cdr: ChangeDetectorRef) {}
+  constructor(private contactsService: ContactsApiService, private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit() {
     this.fetchData();
@@ -240,5 +242,9 @@ export class ContactsComponent implements OnInit {
 
   hasSelectedItems(): boolean {
     return this.selectedItems.length > 0;
+  }
+
+  openContactDetail(contact: Contact) {
+    this.router.navigate([`/contacts/${contact.contactid}`]);
   }
 }

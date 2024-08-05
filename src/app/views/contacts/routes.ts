@@ -18,6 +18,13 @@ export const routes: Routes = [
         data: {
           title: 'Contacts'
         }
+      },
+      {
+        path: ':contactid',
+        loadComponent: () => import('./contact-detail/contact-detail.component').then(m => m.ContactDetailComponent),
+        data: {
+          title: 'Contact Detail'
+        }
       }
     ]
   }

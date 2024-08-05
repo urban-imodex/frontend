@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -14,6 +15,9 @@ import { Contact } from '../../../models/contact.model';
 import { ContactsApiService } from '../contactsAPI';
 import { ToastService } from '../../../utils/toast.service';
 
+import { IconSubset, iconSubset } from '../../../icons/icon-subset';
+import { IconDirective, IconSetService } from '@coreui/icons-angular';
+
 @Component({
   selector: 'app-contact-edit-modal',
   standalone: true,
@@ -27,7 +31,10 @@ import { ToastService } from '../../../utils/toast.service';
     ButtonCloseDirective,
     ModalBodyComponent,
     ModalFooterComponent,
+    IconDirective,
+
   ],
+  providers: [IconSetService],
   templateUrl: './contact-edit-modal.component.html',
   styleUrls: ['./contact-edit-modal.component.scss'],
 })
@@ -38,22 +45,31 @@ export class ContactEditModalComponent implements OnChanges {
 
   isVisible = false;
   isVisibleModal = true;
+  isEditMode = false;
 
   emailError = '';
   phoneError = '';
   addrError = '';
 
   data: Contact[] = [];
+  public icons!: [string, string[]][];
 
   constructor(
     private contactsService: ContactsApiService,
     private toastService: ToastService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    public iconSet: IconSetService,
+    private router: Router
+  ) {
+    iconSet.icons = { ...iconSubset };
+  }
+
+
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['contact'] && this.contact) {
       this.isVisible = true;
+      this.isEditMode = false; // Always start in view mode
     }
   }
 
@@ -64,32 +80,32 @@ export class ContactEditModalComponent implements OnChanges {
     }
   }
 
+  toggleEditMode() {
+    this.isEditMode = !this.isEditMode;
+  }
 
   save() {
     if (this.contact) {
       if (this.isNew) {
-        console.log("save() is New in new on edit modal");
         this.contactsService.createData(this.contact).subscribe({
           next: (newContact) => {
-            this.toastService.showSuccessToast('Contact ADAUGAT cu success.');
+            this.toastService.showSuccessToast('Contact added successfully.');
             this.isVisible = false;
-            // this.contactsService.getData();
             this.closeModal.emit(newContact);
             this.cdr.detectChanges(); // Manually trigger change detection
-          }, 
+          },
           error: (err) => {
             if (err.status === 409 && err.error.code === '23505') {
               this.handleDuplicateError(err.error.message);
             } else {
-              this.toastService.showFailureToast('Oups, a aparut o eroare ' + err.message);
+              this.toastService.showFailureToast('An error occurred: ' + err.message);
             }
           }
         });
       } else {
-        console.log("save() in new on edit modal");
         this.contactsService.updateData(this.contact).subscribe({
           next: (updatedContact) => {
-            this.toastService.showSuccessToast('Contact editat cu success.');
+            this.toastService.showSuccessToast('Contact updated successfully.');
             this.isVisible = false;
             this.closeModal.emit(updatedContact);
             this.cdr.detectChanges(); // Manually trigger change detection
@@ -98,7 +114,7 @@ export class ContactEditModalComponent implements OnChanges {
             if (err.status === 409 && err.error.code === '23505') {
               this.handleDuplicateError(err.error.message);
             } else {
-              this.toastService.showFailureToast('Oups, a aparut o eroare ' + err.message);
+              this.toastService.showFailureToast('An error occurred: ' + err.message);
             }
           }
         });
@@ -109,7 +125,7 @@ export class ContactEditModalComponent implements OnChanges {
   handleDuplicateError(message: string) {
     this.resetErrorStates();
     if (message.includes('contacts_email_key')) {
-      this.emailError = 'Duplicate! email error: ' + message;
+      this.emailError = 'Duplicate email error: ' + message;
     } else if (message.includes('contacts_phone_key')) {
       this.phoneError = 'Duplicate phone error: ' + message;
     } else if (message.includes('contacts_addr_key')) {
@@ -135,15 +151,22 @@ export class ContactEditModalComponent implements OnChanges {
     if (this.contact) {
       this.contactsService.deleteData(this.contact).subscribe({
         next: (deletedContact) => {
-          this.toastService.showSuccessToast('Contact sters cu success.');
+          this.toastService.showSuccessToast('Contact deleted successfully.');
           this.isVisible = false;
           this.closeModal.emit(deletedContact);
           this.cdr.detectChanges(); // Manually trigger change detection
         },
         error: (err) => {
-          this.toastService.showFailureToast('Oups, a aparut o eroare ' + err.message);
+          this.toastService.showFailureToast('An error occurred: ' + err.message);
         }
       });
+    }
+  }
+
+  navigateToDetail() {
+    if (this.contact) {
+      this.onClose();
+      this.router.navigate([`/contacts/${this.contact.contactid}`]);
     }
   }
 }

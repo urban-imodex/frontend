@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
-import { brandSet, flagSet, freeSet } from '@coreui/icons';
+// import { brandSet, flagSet, freeSet } from '@coreui/icons';
+import { iconSubset, IconSubset } from '../../icons/icon-subset';
 import { CardBodyComponent, CardComponent, CardHeaderComponent, ColComponent, RowComponent } from '@coreui/angular';
 
 
@@ -26,7 +27,7 @@ export class CoreUIIconsComponent implements OnInit {
   constructor(private route: ActivatedRoute, public iconSet: IconSetService)
   {
     console.log('IconsModule loaded');
-    iconSet.icons = { ...freeSet, ...brandSet, ...flagSet };
+    iconSet.icons = { ...iconSubset };
   }
 
   ngOnInit() {
