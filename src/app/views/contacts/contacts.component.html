@@ -23,14 +23,14 @@
     [sorterValue]="{ column: 'firstname', state: 'asc' }"
     [tableBodyProps]="{ align: 'middle' }"
     [tableFilter]="true"
-    [tableHeadProps]="{ color: 'dark' }"
+    tableFilterLabel="Filtrare"
+    tableFilterPlaceholder="cauta in contacte"
     [tableProps]="{ hover: true, striped: true, responsive: true }"
     (rowClick)="onRowClick($event.item, $event)"
     [attr.data-instance-id]="'smart-table-1'"
     [selectAll]="false"
   ></c-smart-table>
-  
-  
+
   
 
     <app-contact-edit-modal

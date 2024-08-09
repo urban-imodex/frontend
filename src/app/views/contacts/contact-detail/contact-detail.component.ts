@@ -1,34 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { Contact } from '../../../models/contact.model';
+import { RouterModule, Routes } from '@angular/router';
 import { ContactsApiService } from '../contactsAPI';
-
+import { routes } from '../routes';
 @Component({
   selector: 'app-contact-detail',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './contact-detail.component.html',
-  styleUrls: ['./contact-detail.component.scss']
+  standalone: true,
+  imports: [RouterModule,]
 })
 export class ContactDetailComponent implements OnInit {
-  contact: Contact | null = null;
+  contact: any;
 
-  constructor(
-    private route: ActivatedRoute,
-    private contactsService: ContactsApiService
-  ) {}
+  constructor(private route: ActivatedRoute, private contactService: ContactsApiService) {}
 
   ngOnInit() {
-    const contactid = this.route.snapshot.paramMap.get('contactid');
-    if (contactid) {
-      this.contactsService.getContact(contactid).subscribe({
-        next: (contact) => this.contact = contact,
-        error: (err) => console.error('Error loading contact details:', err)
-      });
+    const contactId: string | null = this.route.snapshot.paramMap.get('contactid');
+    if (contactId) {
+      this.contactService.getContact(contactId).subscribe(contact => this.contact = contact);
+    } else {
+      // Handle the case where contactId is null (e.g., navigate away or show an error)
+      console.error('Contact ID is null');
     }
   }
-
-  
 }
-

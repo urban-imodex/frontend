@@ -1,0 +1,288 @@
+<div class="card">
+    <div class="card-header">
+      <h5>Edit Contact</h5>
+    </div>
+    <div class="card-body">
+        <!-- <form>
+            <div [cFormFloating]="true" class="mb-3">
+              <input cFormControl id="floatingInput" placeholder="name@example.com" type="email" />
+              <label cLabel for="floatingInput">Email address</label>
+            </div>
+            <div cFormFloating>
+              <input cFormControl id="floatingPassword" placeholder="Password" type="password" autocomplete="off" />
+              <label cLabel for="floatingPassword">Password</label>
+            </div>
+          </form> -->
+
+
+          <c-row>
+            <c-col [md]="6">
+              <form (ngSubmit)="onSubmit()" [formGroup]="contactForm" cForm novalidate>
+                <c-row class="mb-1">
+                  <label [sm]="4" cCol cLabel="col" for="firstname">First name</label>
+                  <c-col *ngIf="contactForm.controls['firstname'] as ctrl" [sm]="8">
+                    <input
+                      [autofocus]="true"
+                      [valid]="
+                        ctrl.touched && ctrl.valid
+                          ? true
+                          : (submitted || ctrl.touched) && ctrl.invalid
+                          ? false
+                          : undefined
+                      "
+                      autocomplete="off"
+                      cFormControl
+                      formControlName="firstname"
+                      id="firstname"
+                      placeholder="First name"
+                      required
+                    />
+                    <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                      <ng-container *ngIf="ctrl.errors as errors">
+                        <div *ngIf="errors['required']">First Name is required</div>
+                      </ng-container>
+                    </c-form-feedback>
+                  </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                  <label [sm]="4" cCol cLabel="col" for="lastname">Last name</label>
+                  <c-col *ngIf="contactForm.controls['lastname'] as ctrl" [sm]="8">
+                    <input
+                      [valid]="
+                        ctrl.touched && ctrl.valid
+                          ? true
+                          : (submitted || ctrl.touched) && ctrl.invalid
+                          ? false
+                          : undefined
+                      "
+                      autocomplete="off"
+                      cFormControl
+                      formControlName="lastname"
+                      id="lastName"
+                      placeholder="Last name"
+                      required
+                    />
+                    <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                      <ng-container *ngIf="ctrl.errors as errors">
+                        <div *ngIf="errors['required']">Last Name is required</div>
+                      </ng-container>
+                    </c-form-feedback>
+                  </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                  <label [sm]="4" cCol cLabel="col" for="email">Email</label>
+                  <c-col *ngIf="contactForm.controls['email'] as ctrl" [sm]="8">
+                    <input
+                      [valid]="
+                        ctrl.touched && ctrl.valid
+                          ? true
+                          : (submitted || ctrl.touched) && ctrl.invalid
+                          ? false
+                          : undefined
+                      "
+                      autocomplete="off"
+                      cFormControl
+                      formControlName="email"
+                      id="email"
+                      placeholder="Email"
+                      required
+                      type="email"
+                    />
+                    <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                      <ng-container *ngIf="ctrl.errors as errors">
+                        <div *ngIf="errors?.['required']">Email is required</div>
+                        <div *ngIf="errors?.['email']">
+                          {{ formErrors.email?.email }}
+                        </div>
+                      </ng-container>
+                    </c-form-feedback>
+                  </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                    <label [sm]="4" cCol cLabel="col" for="phone">Telefon:</label>
+                    <c-col *ngIf="contactForm.controls['phone'] as ctrl" [sm]="8">
+                      <input
+                        [autofocus]="true"
+                        [valid]="
+                          ctrl.touched && ctrl.valid
+                            ? true
+                            : (submitted || ctrl.touched) && ctrl.invalid
+                            ? false
+                            : undefined
+                        "
+                        autocomplete="off"
+                        cFormControl
+                        formControlName="phone"
+                        id="phone"
+                        placeholder="Tefefon"
+                        required
+                      />
+                      <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors['required']">Numarul de telefon este obligatoriu</div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                    <label [sm]="4" cCol cLabel="col" for="addrcounty">Judet</label>
+                    <c-col *ngIf="contactForm.controls['addrcounty'] as ctrl" [sm]="8">
+                      <input
+                        [autofocus]="true"
+                        [valid]="
+                          ctrl.touched && ctrl.valid
+                            ? true
+                            : (submitted || ctrl.touched) && ctrl.invalid
+                            ? false
+                            : undefined
+                        "
+                        autocomplete="off"
+                        cFormControl
+                        formControlName="addrcounty"
+                        id="addrcounty"
+                        placeholder="Judet"
+                        required
+                      />
+                      <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors['required']">Judetul este obligatoriu</div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                </c-row>           
+                <c-row class="mb-1">
+                    <label [sm]="4" cCol cLabel="col" for="addrtown">Oras</label>
+                    <c-col *ngIf="contactForm.controls['addrtown'] as ctrl" [sm]="8">
+                      <input
+                        [autofocus]="true"
+                        [valid]="
+                          ctrl.touched && ctrl.valid
+                            ? true
+                            : (submitted || ctrl.touched) && ctrl.invalid
+                            ? false
+                            : undefined
+                        "
+                        autocomplete="off"
+                        cFormControl
+                        formControlName="addrtown"
+                        id="addrtown"
+                        placeholder="Oras"
+                        required
+                      />
+                      <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors['required']">Judetul este obligatoriu</div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                    <label [sm]="4" cCol cLabel="col" for="addraddr">Strada, nr, etc</label>
+                    <c-col *ngIf="contactForm.controls['addraddr'] as ctrl" [sm]="8">
+                      <input
+                        [autofocus]="true"
+                        [valid]="
+                          ctrl.touched && ctrl.valid
+                            ? true
+                            : (submitted || ctrl.touched) && ctrl.invalid
+                            ? false
+                            : undefined
+                        "
+                        autocomplete="off"
+                        cFormControl
+                        formControlName="addraddr"
+                        id="addraddr"
+                        placeholder="Strada, nr, etc"
+                        required
+                      />
+                      <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors['required']">Strada, nr... este obligatoriu</div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                </c-row>
+                <c-row class="mb-1">
+                    <label [sm]="4" cCol cLabel="col" for="privatenote">Note</label>
+                    <c-col *ngIf="contactForm.controls['privatenote'] as ctrl" [sm]="8">
+                      <input
+                        [autofocus]="true"
+                        [valid]="
+                          ctrl.touched && ctrl.valid
+                            ? true
+                            : (submitted || ctrl.touched) && ctrl.invalid
+                            ? false
+                            : undefined
+                        "
+                        autocomplete="off"
+                        cFormControl
+                        formControlName="privatenote"
+                        id="privatenote"
+                        placeholder="Note"
+                        required
+                      />
+                      <c-form-feedback *ngIf="submitted || ctrl.invalid" [valid]="!(submitted || ctrl.invalid)">
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors['required']">Note este obligatoriu</div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                </c-row>
+                <hr />
+                <c-button-group>
+                  <button
+                    [disabled]="contactForm.pristine || contactForm.invalid"
+                    [tabindex]="'0'"
+                    cButton
+                    color="primary"
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    (click)="onValidate()"
+                    [disabled]="contactForm.valid"
+                    [tabindex]="'0'"
+                    cButton
+                    color="success"
+                  >
+                    Validate
+                  </button>
+                  <button (click)="onReset()" [tabindex]="'0'" cButton color="danger" type="reset">
+                    Reset
+                  </button>
+                </c-button-group>
+              </form>
+            </c-col>
+            <c-col [md]="6">
+              <c-card [ngClass]="{ 'bg-info': contactForm.valid }" class="bg-dark">
+                <c-card-body>
+                  <pre class="text-white">Value: <code>{{ contactForm.value | json }}</code></pre>
+                  <ul>
+                    <li>Status: {{ contactForm.status }}</li>
+                    <li>Valid: {{ contactForm.valid }}</li>
+                    <li>Pristine: {{ contactForm.pristine }}</li>
+                    <li>Errors: {{ contactForm.errors | json }}</li>
+                  </ul>
+                  <ul *ngFor="let control of formControls; index as i">
+                    <li>
+                      {{ control }}
+                      <ul>
+                        <li>Invalid: {{ contactForm.controls[control].invalid | json }}</li>
+                        <li>Pristine: {{ contactForm.controls[control].pristine | json }}</li>
+                        <li>Status: {{ contactForm.controls[control].status | json }}</li>
+                        <li>Touched: {{ contactForm.controls[control].touched | json }}</li>
+                        <li>Errors: {{ contactForm.controls[control].errors | json }}</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </c-card-body>
+              </c-card>
+            </c-col>
+          </c-row>
+
+
+
+    </div>
+  </div>
+  

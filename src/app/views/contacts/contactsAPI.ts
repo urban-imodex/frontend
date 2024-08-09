@@ -21,6 +21,7 @@ export class ContactsApiService {
     const { contactid, mine, userID, ...cleanContact } = contactWithExtras;
 
     console.log('Payload to ADD contact:', cleanContact);
+    console.log('Payload to ADD contact:', JSON.stringify(cleanContact, null, 2)); // Add this line to inspect the payload
     return this.http.post<Contact>(this.apiUrl, cleanContact);
   }
 
@@ -41,6 +42,7 @@ export class ContactsApiService {
   }
 
   getContact(contactid: string): Observable<Contact> {
+    console.log("getting contact...");
     return this.http.get<Contact>(`${this.apiUrl}?contactid=eq.${contactid}`);
 
     // https://e7e60ef9f5f3.sn.mynetname.net:9443/contacts?contactid=eq.0277249b-8c69-4bb1-84de-aaa4cca3290f

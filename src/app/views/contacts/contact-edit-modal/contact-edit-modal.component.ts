@@ -9,7 +9,8 @@ import {
   ModalComponent,
   ModalFooterComponent,
   ModalHeaderComponent,
-  ModalTitleDirective
+  ModalTitleDirective,
+  TooltipModule
 } from '@coreui/angular';
 import { Contact } from '../../../models/contact.model';
 import { ContactsApiService } from '../contactsAPI';
@@ -17,6 +18,7 @@ import { ToastService } from '../../../utils/toast.service';
 
 import { IconSubset, iconSubset } from '../../../icons/icon-subset';
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
+// import { FormControlDirective, FormLabelDirective } from '@coreui/angular-pro';
 
 @Component({
   selector: 'app-contact-edit-modal',
@@ -32,6 +34,9 @@ import { IconDirective, IconSetService } from '@coreui/icons-angular';
     ModalBodyComponent,
     ModalFooterComponent,
     IconDirective,
+    TooltipModule,
+    // FormControlDirective,
+    // FormLabelDirective,
 
   ],
   providers: [IconSetService],
@@ -53,6 +58,10 @@ export class ContactEditModalComponent implements OnChanges {
 
   data: Contact[] = [];
   public icons!: [string, string[]][];
+
+  tooltipQuickEdit = 'Editare rapida';
+  tooltipkEdit = 'Editare';
+
 
   constructor(
     private contactsService: ContactsApiService,
@@ -98,7 +107,7 @@ export class ContactEditModalComponent implements OnChanges {
             if (err.status === 409 && err.error.code === '23505') {
               this.handleDuplicateError(err.error.message);
             } else {
-              this.toastService.showFailureToast('An error occurred: ' + err.message);
+              this.toastService.showFailureToast('An error occurred: ' + err.error.message);
             }
           }
         });

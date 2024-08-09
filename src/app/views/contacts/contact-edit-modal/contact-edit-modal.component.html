@@ -50,7 +50,7 @@
             type="text" 
             class="form-control" 
             id="addr" 
-            [(ngModel)]="contact.addr" 
+            [(ngModel)]="contact.addraddr" 
             name="addr"
             [ngClass]="{'is-invalid': addrError}"
             (ngModelChange)="addrError = ''"
@@ -79,7 +79,7 @@
         </div>
         <div class="mb-3">
           <label for="addr" class="form-label">Address</label>
-          <p id="addr">{{ contact.addr }}</p>
+          <p id="addr">{{ contact.addraddr }}</p>
         </div>
       </ng-template>
     </div>
@@ -89,12 +89,12 @@
     <button *ngIf="!isNew && isEditMode" type="button" class="btn btn-danger" (click)="delete()">Delete</button>
   </c-modal-footer>
   <!-- Quick Edit Button -->
-  <button *ngIf="!isEditMode && !isNew" class="fab-edit quick-edit btn btn-primary" (click)="toggleEditMode()">
+  <button *ngIf="!isEditMode && !isNew" [cTooltip]="tooltipQuickEdit" cTooltipPlacement="top" class="fab-edit quick-edit btn btn-primary" (click)="toggleEditMode()">
     <i class="fas fa-pencil-alt"></i>
     <svg cIcon name="cilPencil" size="xl" title="Quick Edit Icon"></svg>
   </button>
 <!-- Detail Edit Button -->
-<button *ngIf="!isEditMode && !isNew" class="fab-edit detail-edit btn btn-secondary" (click)="navigateToDetail()">
+<button *ngIf="!isEditMode && !isNew" [cTooltip]="tooltipkEdit" cTooltipPlacement="top" class="fab-edit detail-edit btn btn-secondary" (click)="navigateToDetail()">
   <i class="fas fa-pencil-alt"></i>
   <svg cIcon name="cilPencil" size="xl" title="Detail Edit Icon"></svg>
 </button>

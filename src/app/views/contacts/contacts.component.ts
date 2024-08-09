@@ -2,6 +2,10 @@ import { Component, OnInit, ChangeDetectorRef, signal } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
+import { IconSubset, iconSubset } from '../../icons/icon-subset';
+import { IconDirective, IconSetService } from '@coreui/icons-angular';
+
 import { ContactEditModalComponent } from './contact-edit-modal/contact-edit-modal.component';
 import { ContactsApiService } from './contactsAPI';
 import { Contact } from '../../models/contact.model';
@@ -55,25 +59,29 @@ import { IItem, SmartTableComponent, TableColorDirective, TemplateIdDirective } 
     TabsContentComponent,
     TabsListComponent,
     TextColorDirective,
+    IconDirective
   ],
+  providers: [IconSetService],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss']
 })
 export class ContactsComponent implements OnInit {
   data: Contact[] = [];
   columns: any[] = [
-    { key: 'firstname', label: 'First Name' },
-    { key: 'lastname', label: 'Last Name' },
-    { key: 'email', label: 'Email' },
-    { key: 'phone', label: 'Phone' },
-    { key: 'addr', label: 'Address' },
-    { key: 'createdat', label: 'Created At' }
+    { key: 'firstname', label: 'Prenume',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    { key: 'lastname', label: 'Nume',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    { key: 'email', label: 'E-mail',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    { key: 'phone', label: 'Telefon',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    { key: 'addraddr', label: 'Adresă',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    { key: 'createdat', label: 'Adăugat la',  _data: { tooltip: 'User Name', icon: 'cilUser' } },
+    // { key: 'show', label: '', _style: { width: '5%' }, filter: false, sorter: false }
   ];
 
   selectedContact: Contact | null = null;
   isNewContact: boolean = false;
   readonly selectedItemsCount = signal(0);
   selectedItems: Contact[] = [];
+  // icons = { cilUser };
   
 
   constructor(private contactsService: ContactsApiService, private cdr: ChangeDetectorRef, private router: Router) {}
@@ -185,8 +193,12 @@ export class ContactsComponent implements OnInit {
       lastname: '',
       email: '',
       phone: '',
-      addr: '',
-      userID: '',
+      addrcounty: '',
+      addrtown: '',
+      addraddr: '',
+      privatenote: '',
+      // agentid: '',
+      // orgid: '',
       createdat: new Date().toISOString()
     };
   }
