@@ -4,34 +4,54 @@
   </c-card-header>
   <c-card-body>
     <br />
+    <!-- Smart Table with Action Column -->
     <c-smart-table
-    #smartTable="cSmartTable"
-    activePage="1"
-    cleaner
-    clickableRows
-    [columnFilter]="true"
-    [columnSorter]="true"
-    [columns]="columns"
-    header
-    [itemsPerPageSelect]="true"
-    [itemsPerPage]="30"
-    [itemsPerPageOptions]="[5, 10, 20, 30, 50, 100]"
-    [items]="data"
-    pagination
-    selectable
-    (selectedItemsChange)="onSelectedItemsChange($event)"
-    [sorterValue]="{ column: 'firstname', state: 'asc' }"
-    [tableBodyProps]="{ align: 'middle' }"
-    [tableFilter]="true"
-    tableFilterLabel="Filtrare"
-    tableFilterPlaceholder="cauta in contacte"
-    [tableProps]="{ hover: true, striped: true, responsive: true }"
-    (rowClick)="onRowClick($event.item, $event)"
-    [attr.data-instance-id]="'smart-table-1'"
-    [selectAll]="false"
-  ></c-smart-table>
+      #smartTable="cSmartTable"
+      activePage="1"
+      cleaner
+      clickableRows
+      [columnFilter]="true"
+      [columnSorter]="true"
+      [columns]="columns"
+      header
+      [itemsPerPageSelect]="true"
+      [itemsPerPage]="30"
+      [itemsPerPageOptions]="[5, 10, 20, 30, 50, 100]"
+      [items]="data"
+      pagination
+      selectable
+      (selectedItemsChange)="onSelectedItemsChange($event)"
+      [sorterValue]="{ column: 'firstname', state: 'asc' }"
+      [tableBodyProps]="{ align: 'middle' }"
+      [tableFilter]="true"
+      tableFilterLabel="Filtrare"
+      tableFilterPlaceholder="cauta in contacte"
+      [tableProps]="{ hover: true, striped: true, responsive: true }"
+      (rowClick)="onRowClick($event.item, $event)"
+      [attr.data-instance-id]="'smart-table-1'"
+      [selectAll]="false"
+    >
 
-  
+      <ng-template cTemplateId="tableData" let-columnName="columnName" let-item="item" let-tdContent="tdContent">
+        <td   >
+          <ng-container [ngSwitch]="columnName">
+            <ng-container *ngSwitchCase="'actions'" class="py-2">
+              <button (click)="openContactDetail(item)" cButton color="primary"  variant="outline">
+                Editare
+              </button>
+              <button (click)="delete(item)" cButton color="danger"  variant="outline">
+                Stergere
+              </button>
+            </ng-container>
+            <ng-container *ngSwitchDefault>
+              {{tdContent}}
+            </ng-container>
+          </ng-container>
+        </td>
+      </ng-template>
+
+
+    </c-smart-table>
 
     <app-contact-edit-modal
       *ngIf="selectedContact"

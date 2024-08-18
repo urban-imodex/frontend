@@ -32,7 +32,8 @@ import {
   FormFeedbackComponent,
   FormLabelDirective,
   RowComponent,
-  TextColorDirective
+  TextColorDirective,
+  InputGroupComponent
 } from '@coreui/angular-pro';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contact } from '../../../models/contact.model';
@@ -74,6 +75,7 @@ export class PasswordValidators {
     ButtonGroupComponent,
     ButtonDirective,
     TextColorDirective,
+    InputGroupComponent,
     CardComponent,
     NgClass,
     CardBodyComponent,
@@ -144,7 +146,7 @@ export class ContactDetailFormComponent implements OnChanges, OnInit {
         addrcounty: ['', [Validators.required,]],
         addrtown: ['', [Validators.required]],
         addraddr: ['', [Validators.required,]],
-        privatenote: ['', [Validators.required,]],
+        privatenote: [''],
 
 
 
@@ -210,6 +212,10 @@ export class ContactDetailFormComponent implements OnChanges, OnInit {
         }
       );
     }
+  }
+
+  cancel(){
+    this.router.navigate(['/contacts']);
   }
 
 

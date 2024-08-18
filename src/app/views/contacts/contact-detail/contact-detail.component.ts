@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule, Routes } from '@angular/router';
+import { NavModule } from '@coreui/angular';
+
 import { ContactsApiService } from '../contactsAPI';
 import { routes } from '../routes';
 @Component({
   selector: 'app-contact-detail',
   templateUrl: './contact-detail.component.html',
   standalone: true,
-  imports: [RouterModule,]
+  imports: [RouterModule,NavModule]
 })
 export class ContactDetailComponent implements OnInit {
   contact: any;
